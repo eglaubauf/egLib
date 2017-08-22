@@ -135,13 +135,21 @@ def setProj(base):
     #Increment Versionnumber by one
     ###############################
 def increaseVersionNum(basename):
-    regex = re.compile('(.*)(\d{1,})(\.\w+)')
+    regex = re.compile('(.*)(\d+)(\.\w+)')
     match = regex.match(basename)
-
     if match:
         basename, number, ext = match.groups()
-        basename += str(int(number) + 1).rjust(len(number), '0') + ext
+        if number:
+            basename += str(int(number) + 1).rjust(len(number), '0') + ext
+        else:
+            basename += new_suffix_format + ext
     else:
+        regex = re.compile('(.hip)')
+        pos = re.search(regex, basename)
+        if pos:
+            pos = pos.start()
+            length = len(basename) - pos
+            basename = basename[:-length]
         ext = getLicenseType()
         basename += new_suffix_format + ext
     return basename
