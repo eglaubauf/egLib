@@ -13,6 +13,6 @@ The Scripts in the scripts Folder shall be added as tools to a custom Toolbar.
 Linking them with some keyboard shortcuts is recommended.
 
 
-For any questions and/or improvement suggestions just contact me via twitter, github or mail.\n
-Twitter: @eglaubauf \n
+For any questions and/or improvement suggestions just contact me via twitter, github or mail.<br>
+Twitter: @eglaubauf <br>
 Web: wwww.elmar-glaubauf.at
