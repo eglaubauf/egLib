@@ -15,4 +15,4 @@ Linking them with some keyboard shortcuts is recommended.
 
 For any questions and/or improvement suggestions just contact me via twitter, github or mail.<br>
 Twitter: @eglaubauf <br>
-Web: wwww.elmar-glaubauf.at
+Web: www.elmar-glaubauf.at
