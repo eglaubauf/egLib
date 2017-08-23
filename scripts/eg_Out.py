@@ -24,7 +24,7 @@
 """
 This script creates a black Null Node and prompts for a name
 
-Twitter: @eglaubauf
+Twitter: @eglaubauf 
 Web: www.elmar-glaubauf.at
 """
 
