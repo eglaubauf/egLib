@@ -27,8 +27,11 @@ This script creates a black Null Node and prompts for a name
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+
+
 import objecttoolutils
 import soptoolutils
+import re
 
 #Get Selected Node
 selNodes = hou.selectedNodes()
@@ -41,15 +44,21 @@ curNode = kwargs["pane"].currentNode()
 
 #Make InputField
 name = hou.ui.readInput("Call me Names", title="Name")[1]
+
+#Remove Special Chars and replace them with "_"
+for k in name.split("\n"):
+    name = re.sub(r"[^a-zA-Z0-9]+", ' ', k)
 name = name.upper()
 name = name.replace(" ", "_")
+
+
 
 #Connect Node to Predecessor
 for x, node in enumerate(selNodes):
     mrg.setNextInput(node)
 
 #SetInterface
-curNode.setName(name)
+curNode.setName(name, True)
 curNode.setColor(hou.Color((0,0,0)))
 
 curNode.setDisplayFlag(True)
