@@ -22,8 +22,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-"""
-This script increments the number at the end of the current scene's name and
+
+"""This script increments the number at the end of the current scene's name and
 saves it as a new file. If there is no number at the end, it will append a
 new number suffix and start from "1".  It also will add the current Date in
 reverse form (YYMMDD) to the Filename as a prefix.
@@ -43,6 +43,8 @@ import datetime
 #CONFIGURATION
 #################################
 new_suffix_format = '_001'
+moveOldFiles = True
+oldDir = "_old"
 #######################################
 #CONFIGURATION END
 #######################################
@@ -53,8 +55,7 @@ new_suffix_format = '_001'
     ##############################
 def save(filename):
     if os.path.isfile(filename):
-        overwrite = hou.ui.displayConfirmation(
-            'The file "{}" already exists. Do you want to overwrite it?' .format(filename))
+        overwrite = hou.ui.displayConfirmation('The file "{}" already exists. Do you want to overwrite it?' .format(filename))
         if not overwrite:
             return
     #Save
@@ -118,31 +119,54 @@ def addDate(basename):
         basename = today + "_" + basename
     return basename
 
+    #############################################
+    #Move old File to a defined directory
+    #############################################
+def moveOldFileToDir(oldPathname, oldBasename):
+    print oldPathname
+    print oldBasename
+    oldpath = oldPathname + oldBasename
+    if os.path.isdir(oldDir):
+        newpath = oldPathname + "/" + oldDir + "/" + oldBasename
+        os.rename(oldpath, newpath)
+    else:
+        newDir = oldPathname+ "/" + oldDir
+        os.mkdir(newDir)
+        newpath = oldPathname + "/" + oldDir + "/" + oldBasename
+        os.rename(oldpath, newpath)
+    return
+    
     ########################################
     #Get Data from Existing File and Iterate
     #########################################
 def getDatafromCurrentFile():
         #Get Data from Current File
-        hip = hou.hipFile
-        filename = hip.path()
-        basename = hip.basename()
-        pathname = re.sub(basename+"$", '', filename)
+    hip = hou.hipFile
+    filename = hip.path()
+    basename = hip.basename()
+    pathname = re.sub(basename+"$", '', filename)
 
-        #Correct Date if necessary
-        basename = addDate(basename)
-        #Increase Version
-        basename = increaseVersionNum(basename)
-        #Concat again
-        filename = pathname + basename
-        #Save
-        save(filename)
-
+    #Save Old name for Later
+    oldPath = pathname
+    oldBasename = basename
+    #Correct Date if necessary
+    basename = addDate(basename)
+    #Increase Version
+    basename = increaseVersionNum(basename)
+    #Concat again
+    filename = pathname + basename
+    #Save
+    save(filename)
+    if moveOldFiles is True:
+        moveOldFileToDir(oldPath, oldBasename)
+    return
 
     #################################
     #Main Call
     ################################
 def main():
-
     getDatafromCurrentFile()
+    return
+
 
 main()
