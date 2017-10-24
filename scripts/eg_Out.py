@@ -54,8 +54,9 @@ name = name.replace(" ", "_")
 
 
 #Connect Node to Predecessor
-for x, node in enumerate(selNodes):
-    mrg.setNextInput(node)
+if not kwargs['shiftclick']:
+    for x, node in enumerate(selNodes):
+        mrg.setNextInput(node)
 
 #SetInterface
 curNode.setName(name, True)
