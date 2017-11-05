@@ -73,6 +73,15 @@ if gs:
             pivY = pivY / count
             pivZ = pivZ / count
 
+            #CalcRotation of Parent
+            rotX = -selNode.parent().parm("rx").eval()
+            rotY = -selNode.parent().parm("ry").eval()
+            rotZ = -selNode.parent().parm("rz").eval()
+            #Counter Rotation of Parent 
+            edit.parm("rx").set(rotX)
+            edit.parm("ry").set(rotY)
+            edit.parm("rz").set(rotZ)
+            
             #SetParms
             edit.parm("px").set(pivX)
             edit.parm("py").set(pivY)
