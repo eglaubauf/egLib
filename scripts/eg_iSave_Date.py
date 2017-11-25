@@ -123,10 +123,9 @@ def addDate(basename):
     #Move old File to a defined directory
     #############################################
 def moveOldFileToDir(oldPathname, oldBasename):
-    print oldPathname
-    print oldBasename
     oldpath = oldPathname + oldBasename
-    if os.path.isdir(oldDir):
+    myDir = oldPathname+oldDir
+    if os.path.isdir(myDir):
         newpath = oldPathname + "/" + oldDir + "/" + oldBasename
         os.rename(oldpath, newpath)
     else:
