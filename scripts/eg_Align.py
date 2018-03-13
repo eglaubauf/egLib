@@ -34,7 +34,7 @@ import objecttoolutils
 import hou
 
 def run():
-    #helper
+    #helper var
     translate = rotate = scale = uniform = pivot = 0
 
     #Get Selected Nodes
