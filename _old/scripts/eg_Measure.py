@@ -22,34 +22,43 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Trajectory for the selected Node
+This script creates a Distance Measure Node with two nulls for easy movement attached. 
+qLib is required. 
 
-Twitter: @eglaubauf 
+Needs qLib Library installed:  https://github.com/qLab/qLib-dev
+
+Feel free to comment/edit/contact me for further development.
+Currently only tested on Windows
+
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+#Set Context
+obj = hou.node("/obj")
+
+#Create Nodes
+dist = obj.createNode("qLib::distance_ql")
+
+start = obj.createNode("null")
+start.setName("start", True)
+start.parm("tx").set("2")
+
+end = obj.createNode("null")
+end.setName("end", True)
+
+#Connect
+dist.setInput(0, start)
+dist.setInput(1, end)
 
 
-import objecttoolutils
-import soptoolutils
-import re
-import hou
 
-def run():
-    #Get Selected Node
-    selNodes = hou.selectedNodes()
+#NetworkBox
+nBox = obj.createNetworkBox()
+nBox.addItem(start)
+nBox.addItem(end)
+nBox.addItem(dist)
 
-    if selNodes: 
-        if len(selNodes) < 2:
-            obj = hou.node("/obj")
-            geoNode = obj.createNode("geo")
-            geoNode.setName("trajectory", True)
-            geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
-            
-            trail = geoNode.createNode("qLib::motion_trail_ql")
-            trail.parm('target').set(selNodes[0].path())
-            #Create NULL
-        else:
-            hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
-    else:
-        hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)
+#Move
+start.moveToGoodPosition()
+end.moveToGoodPosition()
+dist.moveToGoodPosition()

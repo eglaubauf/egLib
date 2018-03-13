@@ -22,34 +22,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Trajectory for the selected Node
+This script will hide/unhide all non selected Nodes.
 
-Twitter: @eglaubauf 
+Feel free to comment/edit/contact me for further development.
+Currently only tested on Windows
+
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
+#Set Context
+obj = hou.node("/obj")
+#Get Selection
 
-import objecttoolutils
-import soptoolutils
-import re
-import hou
-
-def run():
-    #Get Selected Node
-    selNodes = hou.selectedNodes()
-
-    if selNodes: 
-        if len(selNodes) < 2:
-            obj = hou.node("/obj")
-            geoNode = obj.createNode("geo")
-            geoNode.setName("trajectory", True)
-            geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
-            
-            trail = geoNode.createNode("qLib::motion_trail_ql")
-            trail.parm('target').set(selNodes[0].path())
-            #Create NULL
-        else:
-            hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
-    else:
-        hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)
+visited = []
+for n in obj.children():
+    if n not in hou.selectedNodes():
+        if n not in visited:
+            if n.isGenericFlagSet(hou.nodeFlag.Visible):
+                n.setGenericFlag(hou.nodeFlag.Visible, False)
+            else:
+                n.setGenericFlag(hou.nodeFlag.Visible, True)
+            visited.append(n)

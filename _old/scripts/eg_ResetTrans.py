@@ -32,59 +32,56 @@ Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
 import soptoolutils
 import objecttoolutils
 
+#helper
+translate = rotate = scale = uniform = pivot = 0
 
-def run():
-    #helper
-    translate = rotate = scale = uniform = pivot = 0
+#Get Selected Nodes
+selNodes = hou.selectedNodes()
+#Possible Choices
+choices = ["Translate", "Rotate", "Scale", "Uniform Scale", "Pivot" ]
+defaultChoices = [0,1,2,3,4]
+#Create Dialog
+selected = hou.ui.selectFromList( choices , default_choices = defaultChoices, message="Reset Transforms", num_visible_rows=1)
 
-    #Get Selected Nodes
-    selNodes = hou.selectedNodes()
-    #Possible Choices
-    choices = ["Translate", "Rotate", "Scale", "Uniform Scale", "Pivot" ]
-    defaultChoices = [0,1,2,3,4]
-    #Create Dialog
-    selected = hou.ui.selectFromList( choices , default_choices = defaultChoices, message="Reset Transforms", num_visible_rows=1)
-
-    #Get Data out of Tuple
-    for elem in selected:
-        if elem == 0:
-            translate = 1
-        if elem == 1:
-            rotate = 1
-        if elem == 2:
-            scale = 1
-        if elem == 3:
-            uniform = 1
-        if elem == 4:
-            pivot = 1
+#Get Data out of Tuple
+for elem in selected:
+    if elem == 0:
+       translate = 1
+    if elem == 1:
+       rotate = 1
+    if elem == 2:
+       scale = 1
+    if elem == 3:
+       uniform = 1
+    if elem == 4:
+       pivot = 1
 
 
-    #For each selected Node Reset Transforms
-    for x, node in enumerate(selNodes):
-        #Translate
-        if translate == 1:
-            node.parm('tx').set("0")
-            node.parm('ty').set("0")
-            node.parm('tz').set("0")
-        #Rotate
-        if rotate == 1:
-            node.parm('rx').set("0")
-            node.parm('ry').set("0")
-            node.parm('rz').set("0")
-        #Scale
-        if scale == 1:
-            node.parm('sx').set("1")
-            node.parm('sy').set("1")
-            node.parm('sz').set("1")
-        #Uniform Scale
-        if uniform == 1:
-            node.parm('scale').set("1")
-        #Pivot
-        if pivot == 1:
-            node.parm('px').set("0")
-            node.parm('py').set("0")
-            node.parm('pz').set("0")
+#For each selected Node Reset Transforms
+for x, node in enumerate(selNodes):
+   #Translate
+   if translate == 1:
+       node.parm('tx').set("0");
+       node.parm('ty').set("0");
+       node.parm('tz').set("0");
+   #Rotate
+   if rotate == 1:
+       node.parm('rx').set("0");
+       node.parm('ry').set("0");
+       node.parm('rz').set("0");
+   #Scale
+   if scale == 1:
+       node.parm('sx').set("1");
+       node.parm('sy').set("1");
+       node.parm('sz').set("1");
+   #Uniform Scale
+   if uniform == 1:
+     node.parm('scale').set("1");
+   #Pivot
+   if pivot == 1:
+       node.parm('px').set("0");
+       node.parm('py').set("0");
+       node.parm('pz').set("0");

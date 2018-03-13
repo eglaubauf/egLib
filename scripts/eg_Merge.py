@@ -28,23 +28,24 @@ If connected to a shortcut (like 'M') it will have Nuke like functionality.
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
-
 import soptoolutils
+import hou
 
-selNodes = hou.selectedNodes()
-valid = True
+def run(kwargs):
+    selNodes = hou.selectedNodes()
+    valid = True
 
-for node in selNodes:
-    type = node.type()
-    if not hou.NodeType.category(type) == hou.sopNodeTypeCategory():
-        valid = False
-if valid:
-    mrg = soptoolutils.genericTool(kwargs, 'merge')
-
-    for x, node in enumerate(selNodes):
-        mrg.setNextInput(node)
-
-    mrg.setDisplayFlag(True)
-    mrg.setRenderFlag(True)
-else:
-    hou.ui.displayMessage("Please select SOP-Level Nodes")
+    for node in selNodes:
+        type = node.type()
+        if not hou.NodeType.category(type) == hou.sopNodeTypeCategory():
+            valid = False
+    if valid:
+        mrg = soptoolutils.genericTool(kwargs, 'merge')
+        
+        for x, node in enumerate(selNodes):
+            mrg.setNextInput(node)
+        
+        mrg.setDisplayFlag(True)
+        mrg.setRenderFlag(True)
+    else:
+        hou.ui.displayMessage("Please select SOP-Level Nodes")

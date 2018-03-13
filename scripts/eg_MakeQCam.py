@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Distance Measure Node with two nulls for easy movement attached. 
-qLib is required. 
+This script creates a Camera at the Origin, with qLib Frustum and qLib Rig attached.
+The Nodes will be colored and Grouped into a NetworkBox.
 
 Needs qLib Library installed:  https://github.com/qLab/qLib-dev
 
@@ -33,35 +33,61 @@ Currently only tested on Windows
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+
 import hou
 
 def run():
     #Set Context
     obj = hou.node("/obj")
 
-    #Create Nodes
-    dist = obj.createNode("qLib::distance_ql")
-
-    start = obj.createNode("null")
-    start.setName("start", True)
-    start.parm("tx").set("2")
-
-    end = obj.createNode("null")
-    end.setName("end", True)
-
-    #Connect
-    dist.setInput(0, start)
-    dist.setInput(1, end)
+    ##########################
+    # Cam
+    ##########################
+    myCam = obj.createNode("cam")
+    myCam.parm('resx').set('1920')
+    myCam.parm('resy').set('1080')
+    myCam.parm('near').set('0.01')
 
 
+    ##########################
+    # Frustum
+    ##########################
+    frust = obj.createNode("qLib::camera_frustrum_ql")
 
+    #Connect Camera
+    frust.parm('camera').set(myCam.path())
+    #Set Parms
+    frust.parm('near').set('0.1')
+    frust.parm('far').set('30')
+    frust.parm('renderable').set('0')
+
+    ##########################
+    # Rig
+    ##########################
+    rig = obj.createNode('qLib::camera_rig_ql')
+    #SetParent
+    myCam.setInput(0,rig,0)
+
+    ##########################
     #NetworkBox
+    ##########################
     nBox = obj.createNetworkBox()
-    nBox.addItem(start)
-    nBox.addItem(end)
-    nBox.addItem(dist)
+    #AddItems
+    nBox.addItem(rig)
+    nBox.addItem(myCam)
+    nBox.addItem(frust)
+    nBox.setComment('Camera')
 
-    #Move
-    start.moveToGoodPosition()
-    end.moveToGoodPosition()
-    dist.moveToGoodPosition()
+    #LayoutNodes
+    rig.moveToGoodPosition()
+    myCam.moveToGoodPosition()
+    frust.moveToGoodPosition()
+
+    #Color
+    rig.setColor(hou.Color((0,0.7,0.5)))
+    myCam.setColor(hou.Color((0,0.7,0.5)))
+    frust.setColor(hou.Color((0,0.7,0.5)))
+
+    #SetPickingFlags
+    myCam.parm('picking').set('0')
+    frust.parm('picking').set('0')

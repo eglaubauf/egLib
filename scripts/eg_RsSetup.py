@@ -29,21 +29,22 @@ Currently only tested on Windows
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+import hou
+def run():
+    #Set Context
+    out = hou.node("/out")
 
-#Set Context
-out = hou.node("/out")
+    mainRop = out.createNode('Redshift_ROP')
+    iprRop = out.createNode('Redshift_IPR')
 
-mainRop = out.createNode('Redshift_ROP')
-iprRop = out.createNode('Redshift_IPR')
-
-#Link ROPs
-iprRop.parm('linked_rop').set(mainRop.path())
+    #Link ROPs
+    iprRop.parm('linked_rop').set(mainRop.path())
 
 
-nBox = out.createNetworkBox()
-nBox.addItem(iprRop)
-nBox.addItem(mainRop)
+    nBox = out.createNetworkBox()
+    nBox.addItem(iprRop)
+    nBox.addItem(mainRop)
 
-#MakeBeauty
-iprRop.moveToGoodPosition()
-mainRop.moveToGoodPosition()
+    #MakeBeauty
+    iprRop.moveToGoodPosition()
+    mainRop.moveToGoodPosition()

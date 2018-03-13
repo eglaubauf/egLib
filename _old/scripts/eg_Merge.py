@@ -22,34 +22,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Trajectory for the selected Node
+This script will merge two or more Nodes at Sop Level.
+If connected to a shortcut (like 'M') it will have Nuke like functionality.
 
-Twitter: @eglaubauf 
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
-import objecttoolutils
 import soptoolutils
-import re
-import hou
 
-def run():
-    #Get Selected Node
-    selNodes = hou.selectedNodes()
+selNodes = hou.selectedNodes()
+valid = True
 
-    if selNodes: 
-        if len(selNodes) < 2:
-            obj = hou.node("/obj")
-            geoNode = obj.createNode("geo")
-            geoNode.setName("trajectory", True)
-            geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
-            
-            trail = geoNode.createNode("qLib::motion_trail_ql")
-            trail.parm('target').set(selNodes[0].path())
-            #Create NULL
-        else:
-            hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
-    else:
-        hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)
+for node in selNodes:
+    type = node.type()
+    if not hou.NodeType.category(type) == hou.sopNodeTypeCategory():
+        valid = False
+if valid:
+    mrg = soptoolutils.genericTool(kwargs, 'merge')
+
+    for x, node in enumerate(selNodes):
+        mrg.setNextInput(node)
+
+    mrg.setDisplayFlag(True)
+    mrg.setRenderFlag(True)
+else:
+    hou.ui.displayMessage("Please select SOP-Level Nodes")

@@ -1,4 +1,3 @@
-#####################################
 #LICENSE                            #
 #####################################
 #
@@ -22,34 +21,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Trajectory for the selected Node
+This script will create a Redshift ROP ready for IPR View in Viewport
 
-Twitter: @eglaubauf 
+Feel free to comment/edit/contact me for further development.
+Currently only tested on Windows
+
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
+#Set Context
+out = hou.node("/out")
 
-import objecttoolutils
-import soptoolutils
-import re
-import hou
+mainRop = out.createNode('Redshift_ROP')
+iprRop = out.createNode('Redshift_IPR')
 
-def run():
-    #Get Selected Node
-    selNodes = hou.selectedNodes()
+#Link ROPs
+iprRop.parm('linked_rop').set(mainRop.path())
 
-    if selNodes: 
-        if len(selNodes) < 2:
-            obj = hou.node("/obj")
-            geoNode = obj.createNode("geo")
-            geoNode.setName("trajectory", True)
-            geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
-            
-            trail = geoNode.createNode("qLib::motion_trail_ql")
-            trail.parm('target').set(selNodes[0].path())
-            #Create NULL
-        else:
-            hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
-    else:
-        hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)
+
+nBox = out.createNetworkBox()
+nBox.addItem(iprRop)
+nBox.addItem(mainRop)
+
+#MakeBeauty
+iprRop.moveToGoodPosition()
+mainRop.moveToGoodPosition()

@@ -22,34 +22,52 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Trajectory for the selected Node
+This script creates a Flipbook into $HIP/flipbook/camname. Camera Resolution is used.
+If Cam is within a shotql node the name of shotql is used.
 
-Twitter: @eglaubauf 
+Feel free to comment/edit/contact me for further development.
+Currently only tested on Windows
+
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+import toolutils
+import os
+sc = toolutils.sceneViewer()
 
+#Get Current View
+view = sc.curViewport()
 
-import objecttoolutils
-import soptoolutils
-import re
-import hou
+#Settings
+s = sc.flipbookSettings()
 
-def run():
-    #Get Selected Node
-    selNodes = hou.selectedNodes()
+#Set FrameRange
+range = (hou.playbar.playbackRange())
+s.frameRange(range)
 
-    if selNodes: 
-        if len(selNodes) < 2:
-            obj = hou.node("/obj")
-            geoNode = obj.createNode("geo")
-            geoNode.setName("trajectory", True)
-            geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
-            
-            trail = geoNode.createNode("qLib::motion_trail_ql")
-            trail.parm('target').set(selNodes[0].path())
-            #Create NULL
-        else:
-            hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
+#Set Resolution
+cam = view.camera()
+if cam != None: 
+    res = (cam.evalParm('resx'),cam.evalParm('resy'))
+    s.resolution(res)
+    s.cropOutMaskOverlay(True)
+
+    #Set Output Name and Path
+    node = cam.parent().parent()
+    if node.type().name() != "qLib::shot_ql::1":
+        path = cam.name()
     else:
-        hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)
+        path = cam.parent().parent().name()
+        
+    dir = hou.getenv('HIP')+'/'+'flipbook/' + path
+    
+    if not os.path.isdir(dir):
+            os.makedirs(dir)
+    path = '$HIP/flipbook/' + path + '/' + path + '_$F4.jpg'
+    
+    s.output(path)
+
+    sc.flipbook(viewport = view, settings=s, open_dialog = False)
+else:
+    hou.ui.displayMessage('Please create a Camera')
+print "-----------------------------------------"

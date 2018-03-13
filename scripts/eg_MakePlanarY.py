@@ -33,67 +33,68 @@ Web: www.elmar-glaubauf.at
 #
 
 import toolutils
-#Get Points in Viewport
-gs = toolutils.sceneViewer().selectGeometry()
-sS = gs.selectionStrings()
-s = gs.selections()
-if gs:
-    if gs.nodes():
-        n = gs.nodes()[0]
-        geo = n.geometry()
-        points =  s[0].points(geo)
-        selNode = n
+def run():
+    #Get Points in Viewport
+    gs = toolutils.sceneViewer().selectGeometry()
+    sS = gs.selectionStrings()
+    s = gs.selections()
+    if gs:
+        if gs.nodes():
+            n = gs.nodes()[0]
+            geo = n.geometry()
+            points =  s[0].points(geo)
+            selNode = n
 
-        ####NETWORKPANE STUFF
-        #Get Selected Node in Network Pane
-        #selNode = hou.selectedNodes()
+            ####NETWORKPANE STUFF
+            #Get Selected Node in Network Pane
+            #selNode = hou.selectedNodes()
 
-        if selNode:
-            #Create Wrangle Node
-            edit = selNode.parent().createNode("edit")
-            #Connect
-            edit.setInput(0, selNode,0)
-            #Set Group
-            edit.parm("group").set(sS[0])
+            if selNode:
+                #Create Wrangle Node
+                edit = selNode.parent().createNode("edit")
+                #Connect
+                edit.setInput(0, selNode,0)
+                #Set Group
+                edit.parm("group").set(sS[0])
 
-            #############################
-            #Calc Pos
-            #############################
-            pivX = 0
-            pivY = 0
-            pivZ = 0
-            count = 0
-            #Get Average PosX
-            for point in points:
-                pos = point.position()
-                pivX += pos.x()
-                pivY += pos.y()
-                pivZ += pos.z()
-                count += 1
-            #Calc
-            pivX = pivX / count
-            pivY = pivY / count
-            pivZ = pivZ / count
-            
-            #CalcRotation of Parent
-            rotX = -selNode.parent().parm("rx").eval()
-            rotY = -selNode.parent().parm("ry").eval()
-            rotZ = -selNode.parent().parm("rz").eval()
-            #Counter Rotation of Parent 
-            edit.parm("rx").set(rotX)
-            edit.parm("ry").set(rotY)
-            edit.parm("rz").set(rotZ)
-            
-            #SetParms
-            edit.parm("px").set(pivX)
-            edit.parm("py").set(pivY)
-            edit.parm("pz").set(pivZ)
+                #############################
+                #Calc Pos
+                #############################
+                pivX = 0
+                pivY = 0
+                pivZ = 0
+                count = 0
+                #Get Average PosX
+                for point in points:
+                    pos = point.position()
+                    pivX += pos.x()
+                    pivY += pos.y()
+                    pivZ += pos.z()
+                    count += 1
+                #Calc
+                pivX = pivX / count
+                pivY = pivY / count
+                pivZ = pivZ / count
+                
+                #CalcRotation of Parent
+                rotX = -selNode.parent().parm("rx").eval()
+                rotY = -selNode.parent().parm("ry").eval()
+                rotZ = -selNode.parent().parm("rz").eval()
+                #Counter Rotation of Parent 
+                edit.parm("rx").set(rotX)
+                edit.parm("ry").set(rotY)
+                edit.parm("rz").set(rotZ)
+                
+                #SetParms
+                edit.parm("px").set(pivX)
+                edit.parm("py").set(pivY)
+                edit.parm("pz").set(pivZ)
 
-            #Set Pos
-            edit.parm("sy").set("0")
+                #Set Pos
+                edit.parm("sy").set("0")
 
-            #Arrange Stuff
-            edit.moveToGoodPosition()
-            edit.setDisplayFlag(True)
-            edit.setSelected(1,1,0)
-            edit.setName("MakePlanarY", True)
+                #Arrange Stuff
+                edit.moveToGoodPosition()
+                edit.setDisplayFlag(True)
+                edit.setSelected(1,1,0)
+                edit.setName("MakePlanarY", True)

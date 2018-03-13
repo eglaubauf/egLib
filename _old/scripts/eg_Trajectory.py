@@ -32,24 +32,22 @@ Web: www.elmar-glaubauf.at
 import objecttoolutils
 import soptoolutils
 import re
-import hou
 
-def run():
-    #Get Selected Node
-    selNodes = hou.selectedNodes()
+#Get Selected Node
+selNodes = hou.selectedNodes()
 
-    if selNodes: 
-        if len(selNodes) < 2:
-            obj = hou.node("/obj")
-            geoNode = obj.createNode("geo")
-            geoNode.setName("trajectory", True)
-            geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
-            
-            trail = geoNode.createNode("qLib::motion_trail_ql")
-            trail.parm('target').set(selNodes[0].path())
-            #Create NULL
-        else:
-            hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
+if selNodes: 
+    if len(selNodes) < 2:
+        obj = hou.node("/obj")
+        geoNode = obj.createNode("geo")
+        geoNode.setName("trajectory", True)
+        geoNode.moveToGoodPosition()
+        geoNode.children()[0].destroy()
+        
+        trail = geoNode.createNode("qLib::motion_trail_ql")
+        trail.parm('target').set(selNodes[0].path())
+        #Create NULL
     else:
-        hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)
+        hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
+else:
+    hou.ui.displayMessage("Please Select a Node", severity=hou.severityType.Message)

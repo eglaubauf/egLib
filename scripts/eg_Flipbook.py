@@ -33,41 +33,43 @@ Web: www.elmar-glaubauf.at
 """
 import toolutils
 import os
-sc = toolutils.sceneViewer()
+import hou
 
-#Get Current View
-view = sc.curViewport()
+def run():
+    sc = toolutils.sceneViewer()
 
-#Settings
-s = sc.flipbookSettings()
+    #Get Current View
+    view = sc.curViewport()
 
-#Set FrameRange
-range = (hou.playbar.playbackRange())
-s.frameRange(range)
+    #Settings
+    s = sc.flipbookSettings()
 
-#Set Resolution
-cam = view.camera()
-if cam != None: 
-    res = (cam.evalParm('resx'),cam.evalParm('resy'))
-    s.resolution(res)
-    s.cropOutMaskOverlay(True)
+    #Set FrameRange
+    range = (hou.playbar.playbackRange())
+    s.frameRange(range)
 
-    #Set Output Name and Path
-    node = cam.parent().parent()
-    if node.type().name() != "qLib::shot_ql::1":
-        path = cam.name()
-    else:
-        path = cam.parent().parent().name()
+    #Set Resolution
+    cam = view.camera()
+    if cam != None: 
+        res = (cam.evalParm('resx'),cam.evalParm('resy'))
+        s.resolution(res)
+        s.cropOutMaskOverlay(True)
+
+        #Set Output Name and Path
+        node = cam.parent().parent()
+        if node.type().name() != "qLib::shot_ql::1":
+            path = cam.name()
+        else:
+            path = cam.parent().parent().name()
+            
+        dir = hou.getenv('HIP')+'/'+'flipbook/' + path
         
-    dir = hou.getenv('HIP')+'/'+'flipbook/' + path
-    
-    if not os.path.isdir(dir):
-            os.makedirs(dir)
-    path = '$HIP/flipbook/' + path + '/' + path + '_$F4.jpg'
-    
-    s.output(path)
+        if not os.path.isdir(dir):
+                os.makedirs(dir)
+        path = '$HIP/flipbook/' + path + '/' + path + '_$F4.jpg'
+        
+        s.output(path)
 
-    sc.flipbook(viewport = view, settings=s, open_dialog = False)
-else:
-    hou.ui.displayMessage('Please create a Camera')
-print "-----------------------------------------"
+        sc.flipbook(viewport = view, settings=s, open_dialog = False)
+    else:
+        hou.ui.displayMessage('Please create a Camera')

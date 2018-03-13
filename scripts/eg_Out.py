@@ -28,39 +28,43 @@ Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
 import objecttoolutils
 import soptoolutils
 import re
-
-#Get Selected Node
-selNodes = hou.selectedNodes()
-
-#Create NULL
-kwargs['bbox'] = hou.BoundingBox(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
-mrg = objecttoolutils.genericTool(kwargs, 'null')
-
-curNode = kwargs["pane"].currentNode()
-
-#Make InputField
-name = hou.ui.readInput("Call me Names", title="Name")[1]
-
-#Remove Special Chars and replace them with "_"
-for k in name.split("\n"):
-    name = re.sub(r"[^a-zA-Z0-9]+", ' ', k)
-name = name.upper()
-name = name.replace(" ", "_")
+import hou
 
 
+def run(kwargs):
 
-#Connect Node to Predecessor
-if not kwargs['shiftclick']:
-    for x, node in enumerate(selNodes):
-        mrg.setNextInput(node)
+    #Get Selected Node
+    selNodes = hou.selectedNodes()
 
-#SetInterface
-curNode.setName(name, True)
-curNode.setColor(hou.Color((0,0,0)))
+    #mrg = selNodes[0].parent().createNode("null")
+    #Create NULL
+    kwargs['bbox'] = hou.BoundingBox(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
+    mrg = objecttoolutils.genericTool(kwargs, 'null')
 
-curNode.setDisplayFlag(True)
-curNode.setRenderFlag(True)
+    curNode = kwargs["pane"].currentNode()
+
+    #Make InputField
+    name = hou.ui.readInput("Call me Names", title="Name")[1]
+
+    #Remove Special Chars and replace them with "_"
+    for k in name.split("\n"):
+        name = re.sub(r"[^a-zA-Z0-9]+", ' ', k)
+    name = name.upper()
+    name = name.replace(" ", "_")
+
+
+
+    #Connect Node to Predecessor
+    if not kwargs['shiftclick']:
+        for x, node in enumerate(selNodes):
+            mrg.setNextInput(node)
+
+    #SetInterface
+    curNode.setName(name, True)
+    curNode.setColor(hou.Color((0,0,0)))
+
+    curNode.setDisplayFlag(True)
+    curNode.setRenderFlag(True)
