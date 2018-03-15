@@ -162,7 +162,7 @@ def createNormal(channel, channelName):
     
     bc = mb.createNode("displacetexture")
     bc.setName(channelName, True)
-    bc.parm("type").set("Normal")
+    bc.parm("type").set("normal")
 
     pc.setNamedInput("baseN", bc, 1)
 
