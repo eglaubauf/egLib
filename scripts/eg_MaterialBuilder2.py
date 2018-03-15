@@ -65,7 +65,7 @@ def createMaterial():
     #Create Base
     global mb
     mb = mat.createNode("materialbuilder")
-    mb.setName(username)
+    mb.setName(username, True)
     mb.moveToGoodPosition()
     
     print mb.children()
@@ -125,7 +125,7 @@ def createTexture(channel, channelName):
     img_nbc.setInput(0, img_bc, 0)
     
     bc = mb.createNode("texture::2.0")
-    bc.setName(channelName)
+    bc.setName(channelName, True)
 
     #################
     ###Layers####
@@ -164,7 +164,7 @@ def createNormal(channel, channelName):
     img_nbc.setInput(0, img_bc, 0)
     
     bc = mb.createNode("displacetexture")
-    bc.setName(channelName)
+    bc.setName(channelName, True)
 
     pc.setNamedInput("baseN", bc, 1)
 
