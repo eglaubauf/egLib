@@ -68,7 +68,6 @@ def createMaterial():
     mb.setName(username, True)
     mb.moveToGoodPosition()
     
-    print mb.children()
     #Get Surface Output Node
     so = mb.glob("surface_output")[0]
     
@@ -163,6 +162,7 @@ def createNormal(channel, channelName):
     
     bc = mb.createNode("displacetexture")
     bc.setName(channelName, True)
+    bc.parm("type").set("Normal")
 
     pc.setNamedInput("baseN", bc, 1)
 
