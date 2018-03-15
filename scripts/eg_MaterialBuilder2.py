@@ -82,12 +82,7 @@ def createMaterial():
     #Create PrincipledShader
     global pc
     pc = mb.createNode("principledshader")
-    
 
-    #se.setInput(0, pc, 0)
-    #se.setInput(1, pc, 1)
-    #se.setInput(2, pc, 3)
-    #se.setInput(3, pc, 2)
     se.setInput(0, pc, 2)
     #COPS Global
     global img
@@ -118,11 +113,14 @@ def createTexture(channel, channelName):
     
     img_bc = img.createNode("file")
     img_bc.parm("filename1").set(channel)
-    
+    img_bc.moveToGoodPosition()
+
     img_nbc = img.createNode("null")
     img_nbc.setName("OUT_" + channelName.upper())
     
+    
     img_nbc.setInput(0, img_bc, 0)
+    img_nbc.moveToGoodPosition()
     
     bc = mb.createNode("texture::2.0")
     bc.setName(channelName, True)
