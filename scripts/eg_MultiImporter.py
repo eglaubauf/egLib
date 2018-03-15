@@ -43,9 +43,7 @@ def run():
         return
     
     r_as_pprim = hou.ui.displayMessage("RenderMesh as Packed Primitive?", buttons=("Yes", "No"))
-    print r_as_pprim
-
-        
+            
     strings = files.split(";")
     
     for i, s in enumerate(strings):
