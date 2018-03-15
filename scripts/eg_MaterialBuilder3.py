@@ -83,13 +83,7 @@ def createMaterial():
     pc = mb.createNode("principledshader")
 
     se.setInput(0, pc, 2)
-    
-    #COPS Global
-    #global img
-    #img = cop.createNode("img")
-    #img.setName(username, True)
-    #img.moveToGoodPosition()
-    
+        
     #################
     ###Layers####
     #################
@@ -110,71 +104,32 @@ def createMaterial():
 
 def createTexture(channel, channelName):
     
-    #img_bc = img.createNode("file")
-    #img_bc.parm("filename1").set(channel)
-    #img_bc.moveToGoodPosition()
+    tex = mb.createNode("texture::2.0")
+    tex.setName(channelName, True)
+    tex.parm("map").set(channel)
 
-    #img_nbc = img.createNode("null")
-    #img_nbc.setName("OUT_" + channelName.upper())
-    
-    
-    #img_nbc.setInput(0, img_bc, 0)
-    #img_nbc.moveToGoodPosition()
-    
-    bc = mb.createNode("texture::2.0")
-    bc.setName(channelName, True)
-
-    #################
+        #################
     ###Layers####
     #################
     if channelName is "Base_Color":
-     pc.setNamedInput("basecolor", bc, 0)
+     pc.setNamedInput("basecolor", tex, 0)
     elif channelName is "Roughness":
-     pc.setNamedInput("rough",bc, 0)
+     pc.setNamedInput("rough",tex, 0)
     elif channelName is "Metallic":
-     pc.setNamedInput("metallic",bc, 0)
+     pc.setNamedInput("metallic",tex, 0)
     elif channelName is "Reflectivity":
-     pc.setNamedInput("reflect",bc, 0)
-    
-    p_bc = mb.createNode("parameter")
-    p_bc.parm("parmname").set(channelName)
-    p_bc.parm("parmlabel").set(channelName)
-
-    #Set Parameter outside
-    p_bc.parm("parmtype").set(17)
-    bc.setNamedInput("map", p_bc, 0)
-
-    #Connect to File
-    #bc_path = "op:`opfullpath('"+ bc.parent().relativePathTo(img_nbc) + "')`"     
-    #bc_path= channel
-    mb.parm(channelName).set(channel)
+     pc.setNamedInput("reflect",tex, 0)
 
     return
 
 def createNormal(channel, channelName):
 
     
-    bc = mb.createNode("displacetexture")
-    bc.setName(channelName, True)
-    
-    bc.parm("type").set("normal")   
-    pc.setNamedInput("baseN", bc, 1)
+    tex = mb.createNode("displacetexture")
+    tex.setName(channelName, True)
+    tex.parm("texture").set(channel)  
 
-    p_bc = mb.createNode("parameter")
-    p_bc.parm("parmname").set(channelName)
-    p_bc.parm("parmlabel").set(channelName)
-   
- 
-    
-    
-    #Set Parameter outside
-    p_bc.parm("parmtype").set(17)
-    bc.setNamedInput("texture", p_bc, 0)
-   
-    #Connect to COPS
-    #bc_path = "op:`opfullpath('"+ bc.parent().relativePathTo(img_nbc) + "')`"     
-    
-    mb.parm(channelName).set(channel)
+    pc.setNamedInput("baseN",tex, 1)
 
     return
 
