@@ -29,10 +29,10 @@ Web: www.elmar-glaubauf.at
 """
 
 import toolutils
-import hou2
+import hou
 def run():
         
-    #Get GeometrySelection
+    #Get GeometrySelection 
     geoSelection = toolutils.sceneViewer().selectGeometry()
 
     #Selection
