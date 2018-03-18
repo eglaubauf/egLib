@@ -22,40 +22,39 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will connect two Points. Does currently not work trough additional edges
+This script searches FileNodes for Strings an replaces them
 
-Twitter: @eglaubauf
+TODO: UI
+
+Twitter: @eglaubauf 
 Web: www.elmar-glaubauf.at
 """
 
-import toolutils
 import hou
+
 def run():
-        
-    #Get GeometrySelection 
-    geoSelection = toolutils.sceneViewer().selectGeometry()
+  obj = hou.selectedNodes()
 
-    #Selection
-    selectionStrings = geoSelection.selectionStrings()
+  search_A = 'F:/Dropbox/FH/DA/MaPro/020_prod/01_asset/sc02/Floor/geo/'
 
-    ####NETWORKPANE STUFF
-    #Get Selected Node in Network Pane
-    selNode = hou.selectedNodes()
+  newString_A = 'opdef:/Object/MAPRO_Landscape_V3_?'
 
-    #Create Split Node
-    split = selNode[0].parent().createNode("polycut")
-    #Connect
-    split.setInput(0, selNode[0],0)
-
-    #Insert Points???
-    ##WRONG FORMAT
-    split.parm('cutpoints').set(selectionStrings[0])
-    split.parm('strategy').set("cut")
-
-    #Arrange Stuff
-    split.moveToGoodPosition()
-    split.setDisplayFlag(True)
-    split.setSelected(1,1,0) 
-
-
-
+  visited = []
+  for n in obj:
+          if n not in visited:
+            for inner in n.children():
+              if inner.type().name() == "file":
+                  s = inner.parm('file').evalAsString()
+                  if s.find(search_A) != -1:
+                      s = s[s.index("180127"):]
+                      s = newString_A + s
+                  #if s.find(search_B) != -1:
+                  #   s = s[s.index("#"):]
+                    #  s = newString_B + s
+                  inner.parm('file').set(s)
+                      
+                  #if inner.isGenericFlagSet(hou.nodeFlag.Lock):
+                  #   inner.setGenericFlag(hou.nodeFlag.Lock, False)
+              
+            visited.append(n)
+  print "Done"
