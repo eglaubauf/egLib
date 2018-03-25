@@ -38,7 +38,6 @@ import os
 
 #Context
 obj = hou.node("/obj")
-#cop = hou.node("/img")
 mat = hou.node("/mat")
 
 #StringHolders
@@ -47,6 +46,9 @@ roughness = ""
 normal = ""
 metallic = ""
 reflect = ""
+displace = ""
+bump = ""
+
 
 #vars
 img = ""
@@ -85,7 +87,7 @@ def createMaterial():
     se.setInput(0, pc, 2)
         
     #################
-    ###Layers####
+    ######Layers#####
     #################
     if base_color is not "":
         createTexture(base_color, "Base_Color")
@@ -96,7 +98,11 @@ def createMaterial():
     if reflect is not "":
         createTexture(reflect, "Reflectivity")
     if normal is not "":
-        createNormal(normal, "Normal")        
+        createNormal(normal, "Normal")  
+    if displace is not "":
+        createDisplace(displace,"Displace")
+    if bump is not "":
+        createNormal(bump, "Bump")     
 
     mb.layoutChildren()
     
@@ -108,7 +114,7 @@ def createTexture(channel, channelName):
     tex.setName(channelName, True)
     tex.parm("map").set(channel)
 
-        #################
+    #################
     ###Layers####
     #################
     if channelName is "Base_Color":
@@ -124,15 +130,33 @@ def createTexture(channel, channelName):
 
 def createNormal(channel, channelName):
 
-    
     tex = mb.createNode("displacetexture")
     tex.setName(channelName, True)
     tex.parm("texture").set(channel)  
-    tex.parm("type").set("normal")
+    if channelName is "Normal":
+        tex.parm("type").set("normal")
+    elif channelName is "Bump":
+        tex.parm("type").set("bump")
+        tex.parm("scale").set(0.01)
     
     pc.setNamedInput("baseN",tex, 1)
 
     return
+
+def createDisplace(channel, channelName):
+
+    tex = mb.createNode("displacetexture")
+    tex.setName(channelName, True)
+    tex.parm("texture").set(channel)  
+    
+    pc.setNamedInput("disp",tex, 3)
+    pc.parm("dispInput_enable").set(1)
+    pc.parm("dispInput_max").set(1)
+
+
+    mb.glob("*collect")[0].setInput(1,pc, 1)
+    return
+
 
 def getName():
 
@@ -159,29 +183,37 @@ def getFiles():
     global normal
     global metallic
     global reflect
+    global bump
+    global displace
 
        
     for i, s in enumerate(strings):
-         s = s.rstrip(' ')
-         s = s.lstrip(' ')
-         
-         #Get Name of File
-         name = s.split(".")
-         k = name[0].rfind("/")
-         name = name[0][k+1:]
+        s = s.rstrip(' ')
+        s = s.lstrip(' ')
         
+        #Get Name of File
+        name = s.split(".")
+        k = name[0].rfind("/")
+        name = name[0][k+1:]
+    
+    
         
-            
-         if "base_color" in name.lower():
+        if "base_color" in name.lower():
             base_color = s
-         elif "roughness" in name.lower():
+        elif "roughness" in name.lower():
             roughness = s
-         elif "normal" in name.lower():
+        elif "normal" in name.lower():
             normal = s
-         elif "metallic" in name.lower():
+        elif "metallic" in name.lower():
             metallic = s
-         elif "reflect" in name.lower():
+        elif "reflect" in name.lower():
             reflect = s
+        elif "height" in name.lower():
+            displace = s
+        elif "displace" in name.lower():
+            displace = s
+        elif "bump" in name.lower():
+            bump = s
      
     return
 
