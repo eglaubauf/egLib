@@ -24,6 +24,7 @@
 """
 This script will build a Material Tree based on a File Selection 
 The Files are parsed for the Terms "Base_Color", "Metallic", "Roughness", "Reflectivity" and "Normal"
+Also supports "Displacement" and "Bump" Nodes
 The Node Tree will be built within a Materialbuilder. Textures will be wired into a properly named COPs Network and linked back in with Relative Paths . 
 Easy transfer to a Farm is possible with this technique. 
 
@@ -151,8 +152,6 @@ def createDisplace(channel, channelName):
     
     pc.setNamedInput("disp",tex, 3)
     pc.parm("dispInput_enable").set(1)
-    pc.parm("dispInput_max").set(1)
-
 
     mb.glob("*collect")[0].setInput(1,pc, 1)
     return
