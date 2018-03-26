@@ -40,6 +40,7 @@ import shutil
 
 ########CONFIG ME HERE ###########
 project = "Obscure"
+geo = "geo"
 tex = "tex"
 light = "light"
 ############END CONFIG ############
@@ -50,39 +51,101 @@ hipname = hou.getenv("HIPNAME")
 hip = site + hipname
 hiptex = hip + "/" + tex
 hiplight = hip + "/" + light
+hipGeo = hip + "/" + geo
 
 errors = []
 
-count = 0
-
+overwrite = 0
 
 def run():
-
-    global count 
     
+    global overwrite
+    global errors
+    overwrite = hou.ui.displayMessage(text = "Overwrite existing?", buttons=('No','Yes', 'Cancel'), close_choice=2)
+    if overwrite == 2:
+        return
+    print overwrite
 
     mat = hou.node("/mat")
     nodes = mat.children()
     name = "materials"
-    changeMats(nodes, name)
-    text = str(count) + " Material-Textures successfully copied & changed"
-    if count != 0:
-        hou.ui.displayMessage(text)
-
-    count = 0
+    matCount = changeMats(nodes, name, 0)
+    matText = str(matCount) + " Material-Textures successfully copied & changed"
 
     #Check Lights
     obj = hou.node("/obj")
-    changeLights(obj.children())
-    text = str(count) + " Light-Textures successfully copied & changed"
-    if count != 0:
-     hou.ui.displayMessage(text)
+    lightCount = changeLights(obj.children())
+    lightText = str(lightCount) + " Light-Textures successfully copied & changed"
 
+    #Check Geo
+    objCount = changeGeo(obj.children(), 0)
+    objText = str(objCount) + " Geo-Files successfully copied & changed"
+
+    text = "Materials: \n" + matText + "\n\n" +  "Lights: \n" + lightText + "\n\n" +  "Geometry: \n" + objText + "\n\n" 
+    
     if errors: 
-        printErrors()
+        text = printErrors(text)
+    hou.ui.displayMessage(text)
+
+def changeGeo(nodes, count):
+    for n in nodes:
+        if n.type().name() == "subnet":
+            count = changeGeo(n.children(), count)
+        elif n.type().name() == "geo":
+            #Iterate over Nodes on SOP Level
+            for sop in n.children():
+                if sop.type().name() == "file" or sop.type().name() == "filecache":
+                    if sop.parm("filemode") != "write":
+                        # Get Parm as String
+                        s = sop.parm("file").evalAsString()
+                        occur = s.rfind("/")
+                        #Filter out non Files - go to next if none
+                        if occur == -1:
+                            continue
+                        if s.startswith(hou.getenv("HSITE")):   #Leave if already in place
+                            continue   
+                        if not os.path.exists(s):
+                            #global errors
+                            s = (s + " does not exist")
+                            errors.append(s)
+                            continue 
+
+                        filename = s[occur+1:]
+                        path = s[:occur+1]
+
+                        #Create Directories
+                        geoDir = hipGeo + "/" + n.name()
+
+                        if os.path.isdir(hip) is False:
+                            os.makedirs(hip)
+                            os.makedirs(hipGeo)
+                        elif os.path.isdir(hipGeo) is False:
+                            os.makedirs(hipGeo)
+                        if os.path.isdir(geoDir) is False:
+                            os.makedirs(geoDir)
+
+                        #Copy File to HSITE   
+                        global overwrite
+                        if overwrite:      
+                            if not s.startswith("op:/"):
+                                if not copy(s, geoDir):
+                                    continue
+                        else:
+                            if os.path.exists(hou.getenv("HSITE") + "/" + project + "/" + hipname + "/" + geo + "/" + n.name() + "/" + filename):
+                                continue    
+                            elif not copy(s, geoDir):
+                                continue
 
 
-def changeMats(nodes, name):
+                        newPath = "$HSITE/" + project + "/" + hipname + "/" + geo + "/" + n.name() + "/" + filename
+                        #newPath to Parm
+                        sop.parm("file").set(newPath)
+                        sop.parm("loadtype").set("packedseq") #Workaround for PackedPrims on Network Drives
+                        count += 1
+    return count
+
+
+def changeMats(nodes, name, count):
     for n in nodes:
         if n.type().name() == "texture::2.0" or n.type().name() == "principledshader::2.0" or n.type().name() == "displacetexture" :
             for p in n.parms():
@@ -95,12 +158,17 @@ def changeMats(nodes, name):
                         continue
                     if s.startswith(hou.getenv("HSITE")):   #Leave if already in place
                         continue
+                    if not os.path.exists(s):
+                        #global errors
+                        s = (s + " does not exist")
+                        errors.append(s)
+                        continue
 
                     filename = s[occur+1:]
                     path = s[:occur+1]
 
                     #Create Directories
-                    matDir = hiptex+"/"+ name
+                    matDir = hiptex+"/" + name 
 
                     if os.path.isdir(hip) is False:
                         os.makedirs(hip)
@@ -110,29 +178,34 @@ def changeMats(nodes, name):
                     if os.path.isdir(matDir) is False:
                         os.makedirs(matDir)
 
-                    #Copy File to HSITE    
-                    try:
-                        shutil.copy(s,matDir)
-                    except IOError, arg:
-                       ex = s + ": "+ arg[1]
-                       errors.append(ex)
-                       continue
+                    #Copy File to HSITE   
+                    global overwrite
+                    if overwrite:
+                        if not s.startswith("op:/"):      
+                            if not copy(s, matDir):
+                                continue
+                    else:
+                        if os.path.exists(hou.getenv("HSITE") + "/" + project + "/" + hipname + "/" + tex + "/" + name + "/" + filename):
+                            continue    
+                        elif not copy(s, matDir):
+                            continue
 
-                    newPath = "$HSITE/" + project + "/" + hipname + "/" + tex + "/" + n.name() + "/" + filename
-                    #print newPath
+                    newPath = "$HSITE/" + project + "/" + hipname + "/" + tex + "/" + name + "/" + filename
+                    #newPath to Parm
                     n.parm(p.name()).set(newPath)
-                    global count
                     count += 1
 
         if n.type().name() == "materialbuilder":
             children = n.children() 
             name = n.name()    
-            changeMats(children, name)
+            count = changeMats(children, name, count)
             name = "materials"
+    return count
 
 
 def changeLights(nodes):
-   for n in nodes:
+    count = 0
+    for n in nodes:
         if n.type().name() == "hlight::2.0" or n.type().name() == "envlight" or n.type().name() == "indirectlight" :
             for p in n.parms():
                 if p.parmTemplate().type() == hou.parmTemplateType.String:    
@@ -142,41 +215,57 @@ def changeLights(nodes):
                         occur = s.rfind("/")
                         #Filter out non Files - go to next if none
                         if occur == -1:
-                            continue
+                            continue  
                         if s.startswith(hou.getenv("HSITE")):   #Leave if already in place
                             continue
-                        if not os.path.exists(s):
-                            continue 
 
                         filename = s[occur+1:]
                         path = s[:occur+1]
 
                         #Create Directories
-                        matDir = hiplight+"/"
+                        lightDir = hiplight+ "/" + n.name()
 
                         if os.path.isdir(hip) is False:
                             os.makedirs(hip)
                             os.makedirs(hiplight)
                         elif os.path.isdir(hiplight) is False:
                             os.makedirs(hiplight)
-                        if os.path.isdir(matDir) is False:
-                            os.makedirs(matDir)
+                        if os.path.isdir(lightDir) is False:
+                            os.makedirs(lightDir)
                         
-                        #Copy File to HSITE 
-                        shutil.copy(s,matDir)
+                        #Copy File to HSITE   
+                        global overwrite
+                        if overwrite:  
+                            if not s.startswith("op:/"):
+                                if not copy(s, lightDir):
+                                    continue
+                        else:
+                            if os.path.exists(hou.getenv("HSITE") + "/" + project + "/" + hipname + "/" + light + "/" + n.name() + "/" + filename):
+                                continue    
+                            elif not copy(s, lightDir):
+                                continue
 
                         newPath = "$HSITE/" + project + "/" + hipname + "/" + light + "/" + n.name() + "/" + filename
-                        #print newPath
+                        #newPath to Parm
                         n.parm(p.name()).set(newPath)
-                        global count
                         count += 1
+    return count
 
+def copy(s, dest):
+    try:
+        shutil.copy(s, dest)
+    except IOError, arg:
+        ex = s + ": "+ arg[1]
+        errors.append(ex)
+        return False
+    return True
 
-def printErrors():
+def printErrors(text):
 
-    msg = "I failed to copy this Files: \n\n"
+    text = text + "Errors: \n"
+    msg = ""
     for s in errors:
-        msg = msg + s
-        msg = msg + "\n"
+        msg = msg + s + "\n"
 
-    hou.ui.displayMessage(msg)
+    text = text + msg
+    return text
