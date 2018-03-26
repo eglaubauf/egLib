@@ -66,7 +66,8 @@ def run():
     name = "materials"
     changeMats(nodes, name)
     text = str(count) + " Material-Textures successfully copied & changed"
-    hou.ui.displayMessage(text)
+    if count != 0:
+        hou.ui.displayMessage(text)
 
     count = 0
 
@@ -74,9 +75,11 @@ def run():
     obj = hou.node("/obj")
     changeLights(obj.children())
     text = str(count) + " Light-Textures successfully copied & changed"
-    hou.ui.displayMessage(text)
+    if count != 0:
+     hou.ui.displayMessage(text)
 
-    printErrors()
+    if errors: 
+        printErrors()
 
 
 def changeMats(nodes, name):
