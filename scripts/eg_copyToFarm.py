@@ -51,10 +51,15 @@ hip = site + hipname
 hiptex = hip + "/" + tex
 hiplight = hip + "/" + light
 
+errors = []
+
 count = 0
 
 
 def run():
+
+    global count 
+    
 
     mat = hou.node("/mat")
     nodes = mat.children()
@@ -63,7 +68,6 @@ def run():
     text = str(count) + " Material-Textures successfully copied & changed"
     hou.ui.displayMessage(text)
 
-    global count 
     count = 0
 
     #Check Lights
@@ -71,6 +75,8 @@ def run():
     changeLights(obj.children())
     text = str(count) + " Light-Textures successfully copied & changed"
     hou.ui.displayMessage(text)
+
+    printErrors()
 
 
 def changeMats(nodes, name):
@@ -102,7 +108,12 @@ def changeMats(nodes, name):
                         os.makedirs(matDir)
 
                     #Copy File to HSITE    
-                    shutil.copy(s,matDir)
+                    try:
+                        shutil.copy(s,matDir)
+                    except IOError, arg:
+                       ex = s + ": "+ arg[1]
+                       errors.append(ex)
+                       continue
 
                     newPath = "$HSITE/" + project + "/" + hipname + "/" + tex + "/" + n.name() + "/" + filename
                     #print newPath
@@ -156,3 +167,13 @@ def changeLights(nodes):
                         n.parm(p.name()).set(newPath)
                         global count
                         count += 1
+
+
+def printErrors():
+
+    msg = "I failed to copy this Files: \n\n"
+    for s in errors:
+        msg = msg + s
+        msg = msg + "\n"
+
+    hou.ui.displayMessage(msg)
