@@ -35,7 +35,7 @@ Web: www.elmar-glaubauf.at
 
 import soptoolutils
 import objecttoolutils
-
+import hou
 
 def run():
     #helper
