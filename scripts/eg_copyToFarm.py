@@ -160,7 +160,7 @@ def changeGeo(nodes, count):
                         newPath = "$HSITE/" + project + "/" + hipname + "/" + geo + "/" + n.name() + "/" + filename
                         #newPath to Parm
                         sop.parm("file").set(newPath)
-                        sop.parm("loadtype").set("packedseq") #Workaround for PackedPrims on Network Drives
+                        sop.parm("loadtype").set("delayed")
                         count += 1
     return count
 
