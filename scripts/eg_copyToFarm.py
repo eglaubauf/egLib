@@ -43,6 +43,7 @@ project = "Obscure"
 geo = "geo"
 tex = "tex"
 light = "light"
+newName = "toFarm"
 ############END CONFIG ############
 
 
@@ -59,12 +60,15 @@ overwrite = 0
 
 def run():
     
+    saveFile()
     global overwrite
     global errors
-    overwrite = hou.ui.displayMessage(text = "Overwrite existing?", buttons=('No','Yes', 'Cancel'), close_choice=2)
+    overwrite = hou.ui.displayMessage(text = "Overwrite existing Textures?", buttons=('No','Yes', 'Cancel'), close_choice=2)
     if overwrite == 2:
         return
-    print overwrite
+    
+    #Save File Prior To Moving Stuff
+    saveFile()
 
     mat = hou.node("/mat")
     nodes = mat.children()
@@ -86,6 +90,22 @@ def run():
     if errors: 
         text = printErrors(text)
     hou.ui.displayMessage(text)
+
+def saveFile():
+    
+    path = hou.hipFile.path()
+   
+    namePos = path.rfind(".")
+    name = path[:namePos]
+    ext = path[namePos:]
+
+    if not name.endswith(newName):
+        filename = name + "_" + newName + ext
+    else:
+        filename = path
+
+    hou.hipFile.save(filename)
+    return
 
 def changeGeo(nodes, count):
     for n in nodes:
