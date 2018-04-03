@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelfDocument>
+  <!-- This file contains definitions of shelves, toolbars, and tools.
+ It should not be hand-edited when it is being used by the application.
+ Note, that two definitions of the same element are not allowed in
+ a single file. -->
+
+  <toolshelf name="IO" label="IO">
+    <memberTool name="ReplaceString"/>
+    <memberTool name="WriteFiles"/>
+    <memberTool name="mImporter"/>
+    <memberTool name="MB3"/>
+    <memberTool name="FarmCopy"/>
+    <memberTool name="toRAT"/>
+  </toolshelf>
+</shelfDocument>

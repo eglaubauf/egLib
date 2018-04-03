@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shelfDocument>
+  <!-- This file contains definitions of shelves, toolbars, and tools.
+ It should not be hand-edited when it is being used by the application.
+ Note, that two definitions of the same element are not allowed in
+ a single file. -->
+
+  <toolshelf name="egLib" label="egLib">
+    <memberTool name="OUT"/>
+    <memberTool name="IN"/>
+    <memberTool name="Merge2"/>
+    <memberTool name="Reset Transforms"/>
+    <memberTool name="Zero Extrude"/>
+    <memberTool name="RSQueue_JSON"/>
+    <memberTool name="Align"/>
+    <memberTool name="MakeCam"/>
+    <memberTool name="Connect Points"/>
+    <memberTool name="PlanarX"/>
+    <memberTool name="PlanarY"/>
+    <memberTool name="PlanarZ"/>
+    <memberTool name="ShotSave"/>
+    <memberTool name="iDateSave"/>
+    <memberTool name="FileSave"/>
+    <memberTool name="Flipbook"/>
+    <memberTool name="Measure"/>
+    <memberTool name="RS_Setup"/>
+    <memberTool name="Trajectory"/>
+    <memberTool name="tool_4"/>
+    <memberTool name="Hide Selected"/>
+    <memberTool name="Autofocus"/>
+  </toolshelf>
+</shelfDocument>
