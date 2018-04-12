@@ -11,7 +11,7 @@
 
 When there are problems contact me via Twitter, or raise an Issue on Github. Thank you. 
 
-###NEW 03/2018: 
+### NEW 03/2018: 
 
 1. Materialbuilder:
 This script will build a Material Tree based on a File Selection 
@@ -27,7 +27,7 @@ The Geometry is parsed for "Collide" and "Render". Renderfiles can optionially l
 
 
 
-###Installation:
+### Installation:
 
 Append egLib to Houdini Python path or add to 123.py or 456.py
 
@@ -35,7 +35,7 @@ import sys
 sys.path.append("<PATHTOLIB>\egLib\scripts")
 
 
-###Notes:
+### Notes:
 
 
 All of the scripts are free of charge for free use, commercial or non commercial whatsoever.  Individual Licenses are added to each file as some of these are based on work done by other devs and shall be included in branches, adaptions of this scripts. Anyone is allowed to modify, develop, change the files for his/her purpose.
