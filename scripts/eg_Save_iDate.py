@@ -78,12 +78,16 @@ def getLicenseType():
     #Increment Versionnumber by one
     ###############################
 def increaseVersionNum(basename):
-    regex = re.compile('(.*)(\d+)(\.\w+)')
+    regex = re.compile('(.*)((?<=_)\d+)(\.\w+)')
     match = regex.match(basename)
     if match:
         basename, number, ext = match.groups()
         if number:
+            print basename
+            print number
             basename += str(int(number) + 1).rjust(len(number), '0') + ext
+            print basename
+            print "-----"
         else:
             basename += new_suffix_format + ext
     else:
