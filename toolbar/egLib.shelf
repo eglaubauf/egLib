@@ -23,6 +23,7 @@
     <memberToolshelf name="volume"/>
     <memberToolshelf name="tdtools"/>
     <memberToolshelf name="egLib"/>
+    <memberToolshelf name="IO"/>
   </shelfSet>
 
   <toolshelf name="characters" label="Characters">
@@ -74,22 +75,7 @@
     <memberTool name="tool_4"/>
     <memberTool name="Hide Selected"/>
     <memberTool name="Autofocus"/>
-  </toolshelf>
-
-  <toolshelf name="guidemodify" label="Guide Process">
-    <memberTool name="sop_groom_guideinit"/>
-    <memberTool name="sop_groom_curveadvect"/>
-    <memberTool name="sop_groom_reguide"/>
-    <memberTool name="sop_groom_guideprocess_setdir"/>
-    <memberTool name="sop_groom_guideprocess_length"/>
-    <memberTool name="sop_groom_guideprocess_lift"/>
-    <memberTool name="sop_groom_guideprocess_straighten"/>
-    <memberTool name="sop_groom_guideprocess_smooth"/>
-    <memberTool name="sop_groom_guideprocess_frizz"/>
-    <memberTool name="sop_groom_guideprocess_bend"/>
-    <memberTool name="sop_groom_hairclump"/>
-    <memberTool name="sop_groom_drawpartingline"/>
-    <memberTool name="sop_groom_whitehair"/>
+    <memberTool name="setPP"/>
   </toolshelf>
 
   <toolshelf name="cloud" label="Cloud FX">
@@ -100,15 +86,13 @@
     <memberTool name="sky_rig"/>
   </toolshelf>
 
-  <toolshelf name="groomtools" label="Hair Utils">
-    <memberTool name="object_groom_addfur"/>
-    <memberTool name="object_groom_guidegroom"/>
-    <memberTool name="object_groom_groommerge"/>
-    <memberTool name="object_groom_animateguides"/>
-    <memberTool name="object_groom_simguides"/>
-    <memberTool name="object_groom_hairgen"/>
-    <memberTool name="object_groom_isolateparts"/>
-    <memberTool name="object_groom_togglehairdisplay"/>
+  <toolshelf name="IO" label="IO">
+    <memberTool name="ReplaceString"/>
+    <memberTool name="WriteFiles"/>
+    <memberTool name="mImporter"/>
+    <memberTool name="MB3"/>
+    <memberTool name="FarmCopy"/>
+    <memberTool name="toRAT"/>
   </toolshelf>
 
   <toolshelf name="grooming" label="Guide Brushes">
@@ -134,6 +118,17 @@
     <memberTool name="terrain_islands"/>
     <memberTool name="terrain_canyon"/>
     <memberTool name="terrain_dunes"/>
+  </toolshelf>
+
+  <toolshelf name="groomtools" label="Hair Utils">
+    <memberTool name="object_groom_addfur"/>
+    <memberTool name="object_groom_guidegroom"/>
+    <memberTool name="object_groom_groommerge"/>
+    <memberTool name="object_groom_animateguides"/>
+    <memberTool name="object_groom_simguides"/>
+    <memberTool name="object_groom_hairgen"/>
+    <memberTool name="object_groom_isolateparts"/>
+    <memberTool name="object_groom_togglehairdisplay"/>
   </toolshelf>
 
   <toolshelf name="volume" label="Volume">
@@ -200,6 +195,22 @@
     <memberTool name="object_constrainttoggle"/>
     <memberTool name="object_constraintbake"/>
     <memberTool name="object_constraintdelete"/>
+  </toolshelf>
+
+  <toolshelf name="guidemodify" label="Guide Process">
+    <memberTool name="sop_groom_guideinit"/>
+    <memberTool name="sop_groom_curveadvect"/>
+    <memberTool name="sop_groom_reguide"/>
+    <memberTool name="sop_groom_guideprocess_setdir"/>
+    <memberTool name="sop_groom_guideprocess_length"/>
+    <memberTool name="sop_groom_guideprocess_lift"/>
+    <memberTool name="sop_groom_guideprocess_straighten"/>
+    <memberTool name="sop_groom_guideprocess_smooth"/>
+    <memberTool name="sop_groom_guideprocess_frizz"/>
+    <memberTool name="sop_groom_guideprocess_bend"/>
+    <memberTool name="sop_groom_hairclump"/>
+    <memberTool name="sop_groom_drawpartingline"/>
+    <memberTool name="sop_groom_whitehair"/>
   </toolshelf>
 
   <toolshelf name="deform" label="Deform">
@@ -296,32 +307,10 @@
     <memberTool name="geometry_file"/>
   </toolshelf>
 
-  <tool name="sop_clusterpoints" label="Cluster Points" icon="SOP_clusterpoints">
-    <helpURL>operator:Sop/clusterpoints</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/clusterpoints</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Attribute</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'clusterpoints')]]></script>
-  </tool>
-
-  <tool name="object_mcacclaim" label="Mocap Acclaim" icon="OBJ_mcacclaim">
-    <helpURL>operator:Object/mcacclaim</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>OBJ</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Object/mcacclaim</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Characters</toolSubmenu>
-    <script scriptType="python"><![CDATA[import objecttoolutils
-
-objecttoolutils.genericTool(kwargs, 'mcacclaim')]]></script>
+  <tool name="setPP" label="setPP" icon="PLASMA_App">
+    <script scriptType="python"><![CDATA[import eg_SetPP
+reload(eg_SetPP)
+eg_SetPP.run()]]></script>
   </tool>
 
   <tool name="object_drawhairguides" label="Draw Hair" icon="SOP_drawhair">
@@ -2763,6 +2752,104 @@ soptoolutils.genericTool(kwargs, 'reverse', allow_obj_sel=False)]]></script>
 soptoolutils.genericTool(kwargs, 'object_merge')]]></script>
   </tool>
 
+  <tool name="sop_facet" label="Facet" icon="SOP_facet">
+    <helpURL>operator:Sop/facet</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/facet</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Polygon</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'facet')]]></script>
+  </tool>
+
+  <tool name="sop_refine" label="Refine" icon="SOP_refine">
+    <helpURL>operator:Sop/refine</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/refine</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>NURBS</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'refine', allow_obj_sel=False)]]></script>
+  </tool>
+
+  <tool name="sop_subdivide" label="Subdivide" icon="SOP_subdivide">
+    <helpURL>operator:Sop/subdivide</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/subdivide</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Polygon</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'subdivide')]]></script>
+  </tool>
+
+  <tool name="sop_skin" label="Skin" icon="SOP_skin">
+    <helpURL>operator:Sop/skin</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/skin</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>NURBS</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'skin')]]></script>
+  </tool>
+
+  <tool name="sop_vertex" label="Vertex - Old" icon="SOP_vertex">
+    <helpURL>operator:Sop/vertex</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/vertex</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Attribute</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'vertex')]]></script>
+  </tool>
+
+  <tool name="sop_convert" label="Convert" icon="SOP_convert">
+    <helpURL>operator:Sop/convert</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/convert</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Utility</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'convert', allow_obj_sel=False)]]></script>
+  </tool>
+
+  <tool name="sop_visibility" label="Visibility" icon="SOP_visibility">
+    <helpURL>operator:Sop/visibility</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/visibility</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Attribute</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'visibility')]]></script>
+  </tool>
+
   <tool name="sop_attribmirror" label="Attribute Mirror" icon="SOP_attribmirror">
     <helpURL>operator:Sop/attribmirror</helpURL>
     <toolMenuContext name="viewer">
@@ -3003,104 +3090,6 @@ soptoolutils.genericTool(kwargs, 'sweep')]]></script>
 soptoolutils.genericTool(kwargs, 'creep')]]></script>
   </tool>
 
-  <tool name="sop_refine" label="Refine" icon="SOP_refine">
-    <helpURL>operator:Sop/refine</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/refine</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>NURBS</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'refine', allow_obj_sel=False)]]></script>
-  </tool>
-
-  <tool name="sop_subdivide" label="Subdivide" icon="SOP_subdivide">
-    <helpURL>operator:Sop/subdivide</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/subdivide</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Polygon</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'subdivide')]]></script>
-  </tool>
-
-  <tool name="sop_facet" label="Facet" icon="SOP_facet">
-    <helpURL>operator:Sop/facet</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/facet</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Polygon</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'facet')]]></script>
-  </tool>
-
-  <tool name="sop_vertex" label="Vertex - Old" icon="SOP_vertex">
-    <helpURL>operator:Sop/vertex</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/vertex</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Attribute</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'vertex')]]></script>
-  </tool>
-
-  <tool name="sop_convert" label="Convert" icon="SOP_convert">
-    <helpURL>operator:Sop/convert</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/convert</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Utility</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'convert', allow_obj_sel=False)]]></script>
-  </tool>
-
-  <tool name="sop_visibility" label="Visibility" icon="SOP_visibility">
-    <helpURL>operator:Sop/visibility</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/visibility</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Attribute</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'visibility')]]></script>
-  </tool>
-
-  <tool name="sop_skin" label="Skin" icon="SOP_skin">
-    <helpURL>operator:Sop/skin</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/skin</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>NURBS</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'skin')]]></script>
-  </tool>
-
   <tool name="sop_ray" label="Ray" icon="SOP_ray">
     <helpURL>operator:Sop/ray</helpURL>
     <toolMenuContext name="viewer">
@@ -3173,20 +3162,6 @@ soptoolutils.genericTool(kwargs, 'font')]]></script>
 soptoolutils.genericTool(kwargs, 'fuse')]]></script>
   </tool>
 
-  <tool name="sop_dissolve::2.0" label="Dissolve" icon="SOP_dissolve-2.0">
-    <helpURL>operator:Sop/dissolve?version=2.0</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/dissolve::2.0</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Polygon</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'dissolve::2.0')]]></script>
-  </tool>
-
   <tool name="sop_add" label="Add" icon="SOP_add">
     <helpURL>operator:Sop/add</helpURL>
     <toolMenuContext name="viewer">
@@ -3199,6 +3174,20 @@ soptoolutils.genericTool(kwargs, 'dissolve::2.0')]]></script>
     <script scriptType="python"><![CDATA[import soptoolutils
 
 soptoolutils.genericTool(kwargs, 'add')]]></script>
+  </tool>
+
+  <tool name="sop_dissolve::2.0" label="Dissolve" icon="SOP_dissolve-2.0">
+    <helpURL>operator:Sop/dissolve?version=2.0</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/dissolve::2.0</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Polygon</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'dissolve::2.0')]]></script>
   </tool>
 
   <tool name="sop_attribcreate::2.0" label="Attribute Create" icon="SOP_attribcreate-2.0">
@@ -3229,20 +3218,6 @@ soptoolutils.genericTool(kwargs, 'attribcreate::2.0')]]></script>
 soptoolutils.genericTool(kwargs, 'uvquickshade', allow_obj_sel=False)]]></script>
   </tool>
 
-  <tool name="sop_cache" label="Cache" icon="SOP_cache">
-    <helpURL>operator:Sop/cache</helpURL>
-    <toolMenuContext name="viewer">
-      <contextNetType>SOP</contextNetType>
-    </toolMenuContext>
-    <toolMenuContext name="network">
-      <contextOpType>Sop/cache</contextOpType>
-    </toolMenuContext>
-    <toolSubmenu>Utility</toolSubmenu>
-    <script scriptType="python"><![CDATA[import soptoolutils
-
-soptoolutils.genericTool(kwargs, 'cache')]]></script>
-  </tool>
-
   <tool name="sop_attribtransfer" label="Attribute Transfer" icon="SOP_attribtransfer">
     <helpURL>operator:Sop/attribtransfer</helpURL>
     <toolMenuContext name="viewer">
@@ -3269,6 +3244,20 @@ soptoolutils.genericTool(kwargs, 'attribtransfer')]]></script>
     <script scriptType="python"><![CDATA[import soptoolutils
 
 soptoolutils.genericTool(kwargs, 'rails')]]></script>
+  </tool>
+
+  <tool name="sop_cache" label="Cache" icon="SOP_cache">
+    <helpURL>operator:Sop/cache</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/cache</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Utility</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'cache')]]></script>
   </tool>
 
   <tool name="OUT" label="OUT" icon="$ICONS/OUT.png">
@@ -3860,10 +3849,46 @@ for n in obj.children():
             visited.append(n)]]></script>
   </tool>
 
+  <tool name="ReplaceString" label="ReplaceString" icon="$ICONS/replace_text.png">
+    <script scriptType="python"><![CDATA[import eg_replaceString
+reload(eg_replaceString)
+eg_replaceString.run()]]></script>
+  </tool>
+
+  <tool name="WriteFiles" label="WriteFiles" icon="$ICONS/write_file.png">
+    <script scriptType="python"><![CDATA[import eg_WriteFiles
+reload(eg_WriteFiles)
+eg_WriteFiles.run()]]></script>
+  </tool>
+
+  <tool name="mImporter" label="mImporter" icon="$ICONS/import_.png">
+    <script scriptType="python"><![CDATA[import eg_MultiImporter
+reload(eg_MultiImporter)
+eg_MultiImporter.run()]]></script>
+  </tool>
+
+  <tool name="MB3" label="MB3" icon="$ICONS/shade.png">
+    <script scriptType="python"><![CDATA[import eg_MaterialBuilder3
+reload(eg_MaterialBuilder3)
+eg_MaterialBuilder3.run()]]></script>
+  </tool>
+
   <tool name="Autofocus" label="Autofocus" icon="$ICONS/camera.png">
     <script scriptType="python"><![CDATA[import eg_autofocus
 reload(eg_autofocus)
 eg_autofocus.run()]]></script>
+  </tool>
+
+  <tool name="FarmCopy" label="FarmCopy" icon="$ICONS/server.png">
+    <script scriptType="python"><![CDATA[import eg_copyToFarm
+reload(eg_copyToFarm)
+eg_copyToFarm.run()]]></script>
+  </tool>
+
+  <tool name="toRAT" label="toRAT" icon="PLASMA_App">
+    <script scriptType="python"><![CDATA[import eg_convertToRat
+reload(eg_convertToRat)
+eg_convertToRat.run()]]></script>
   </tool>
 
   <tool name="sop_constraintnetwork" label="Constraints Network" icon="NETWORKS_chop">
@@ -3881,6 +3906,20 @@ eg_autofocus.run()]]></script>
 #soptoolutils.genericTool(kwargs, 'constraintnetwork')
 import objecttoolutils
 objecttoolutils.constraintnetworkStateToolApply(kwargs)]]></script>
+  </tool>
+
+  <tool name="sop_cloud" label="Cloud" icon="SOP_cloud">
+    <helpURL>operator:Sop/cloud</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>SOP</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Sop/cloud</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Volume</toolSubmenu>
+    <script scriptType="python"><![CDATA[import soptoolutils
+
+soptoolutils.genericTool(kwargs, 'cloud')]]></script>
   </tool>
 
   <tool name="sop_cloudnoise" label="Cloud Noise" icon="SOP_cloudnoise">
@@ -3911,17 +3950,31 @@ soptoolutils.genericTool(kwargs, 'cloudnoise')]]></script>
 soptoolutils.genericTool(kwargs, 'mountain::2.0')]]></script>
   </tool>
 
-  <tool name="sop_cloud" label="Cloud" icon="SOP_cloud">
-    <helpURL>operator:Sop/cloud</helpURL>
+  <tool name="sop_clusterpoints" label="Cluster Points" icon="SOP_clusterpoints">
+    <helpURL>operator:Sop/clusterpoints</helpURL>
     <toolMenuContext name="viewer">
       <contextNetType>SOP</contextNetType>
     </toolMenuContext>
     <toolMenuContext name="network">
-      <contextOpType>Sop/cloud</contextOpType>
+      <contextOpType>Sop/clusterpoints</contextOpType>
     </toolMenuContext>
-    <toolSubmenu>Volume</toolSubmenu>
+    <toolSubmenu>Attribute</toolSubmenu>
     <script scriptType="python"><![CDATA[import soptoolutils
 
-soptoolutils.genericTool(kwargs, 'cloud')]]></script>
+soptoolutils.genericTool(kwargs, 'clusterpoints')]]></script>
+  </tool>
+
+  <tool name="object_mcacclaim" label="Mocap Acclaim" icon="OBJ_mcacclaim">
+    <helpURL>operator:Object/mcacclaim</helpURL>
+    <toolMenuContext name="viewer">
+      <contextNetType>OBJ</contextNetType>
+    </toolMenuContext>
+    <toolMenuContext name="network">
+      <contextOpType>Object/mcacclaim</contextOpType>
+    </toolMenuContext>
+    <toolSubmenu>Characters</toolSubmenu>
+    <script scriptType="python"><![CDATA[import objecttoolutils
+
+objecttoolutils.genericTool(kwargs, 'mcacclaim')]]></script>
   </tool>
 </shelfDocument>
