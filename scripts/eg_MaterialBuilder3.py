@@ -197,7 +197,7 @@ def getFiles():
     
     
         
-        if "base_color" in name.lower():
+        if "base_color" in name.lower() or "basecolor" in name.lower():
             base_color = s
         elif "roughness" in name.lower():
             roughness = s
