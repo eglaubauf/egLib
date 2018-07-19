@@ -227,23 +227,11 @@ def createDisplace(channel, channelName):
     
     layer = mb.createNode("parameter")
     layer.parm("parmname").set("layer")
-    layer.parm("useownexportcontext").set(1)
     layer.parm("exportparm").set(1)
+    layer.parm("useownexportcontext").set(1)
     layer.parm("exportcontext").set("displace")
     layer.parm("parmtype").set("struct")
     layer.parm("parmtypename").set("shaderlayer")
-
-
-
-    layer = mb.createNode("parameter")
-    layer.parm("parmname").set("layer")
-    layer.parm("exportparm").set(1)
-    layer.parm("useownexportcontext").set(1)
-    layer.parm("exportcontext").set("displace")
-    layer.parm("parmtype").set("struct")
-    layer.parm("parmtypename").set("ShaderLayer")
-    layer.setInput(0,pc,2)
-
 
     layer.setInput(0,lp, 0)
 
