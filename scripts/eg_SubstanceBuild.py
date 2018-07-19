@@ -98,6 +98,15 @@ def createMaterial():
     global pc
     pc = mb.createNode("principledshader")
 
+    #Layer Export
+    layer = mb.createNode("parameter")
+    layer.parm("parmname").set("layer")
+    layer.parm("exportparm").set(1)
+    layer.parm("useownexportcontext").set(1)
+    layer.parm("parmtype").set("struct")
+    layer.parm("parmtypename").set("ShaderLayer")
+    layer.setInput(0,pc,2)
+
     se.setInput(0, pc, 2)
 
     
@@ -209,6 +218,35 @@ def createDisplace(channel, channelName):
 
     #Connect
     mb.glob("*collect")[0].setInput(2,prop,0)
+
+    #Layer Export
+    lp = mb.createNode("layerpack")
+    lp.setInput(3, tex, 0)
+    lp.setInput(4, tex, 1)
+
+    
+    layer = mb.createNode("parameter")
+    layer.parm("parmname").set("layer")
+    layer.parm("useownexportcontext").set(1)
+    layer.parm("exportparm").set(1)
+    layer.parm("exportcontext").set("displace")
+    layer.parm("parmtype").set("struct")
+    layer.parm("parmtypename").set("shaderlayer")
+
+
+
+    layer = mb.createNode("parameter")
+    layer.parm("parmname").set("layer")
+    layer.parm("exportparm").set(1)
+    layer.parm("useownexportcontext").set(1)
+    layer.parm("exportcontext").set("displace")
+    layer.parm("parmtype").set("struct")
+    layer.parm("parmtypename").set("ShaderLayer")
+    layer.setInput(0,pc,2)
+
+
+    layer.setInput(0,lp, 0)
+
     return
 
 
