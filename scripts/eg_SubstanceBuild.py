@@ -28,6 +28,8 @@ The Geometry is parsed for "Collide" and "Render". Renderfiles can optionially l
 
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
+
+TODO: Enable optional Texture conversion to .rat/rs
 """
 
 
