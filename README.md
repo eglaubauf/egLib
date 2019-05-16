@@ -1,6 +1,16 @@
 # egLib
 #A collection of scripts for SideFx Houdini
 
+
+### NEW 05/2019
+
+1. There will be more regular updates from now on
+2. Initial releases for some otls
+3. Remove deprecated scripts
+4. Updated Toolbars
+5. TODO: Refactor Code for certain scripts (OOP)
+6. TODO: Improve otls
+
 ### NEW 04/2018
 
 1. Shelves!
