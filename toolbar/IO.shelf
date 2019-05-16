@@ -50,6 +50,7 @@
     <memberTool name="sop_uvquickshade"/>
     <memberTool name="generic_cleartexcache"/>
     <memberTool name="sop_uvsmooth"/>
+    <memberTool name="tool_1"/>
   </toolshelf>
 
   <toolshelf name="egLib" label="egLib">
@@ -58,7 +59,6 @@
     <memberTool name="Merge2"/>
     <memberTool name="Reset Transforms"/>
     <memberTool name="Zero Extrude"/>
-    <memberTool name="RSQueue_JSON"/>
     <memberTool name="Align"/>
     <memberTool name="MakeCam"/>
     <memberTool name="Connect Points"/>
@@ -67,12 +67,9 @@
     <memberTool name="PlanarZ"/>
     <memberTool name="ShotSave"/>
     <memberTool name="iDateSave"/>
-    <memberTool name="FileSave"/>
     <memberTool name="Flipbook"/>
     <memberTool name="Measure"/>
-    <memberTool name="RS_Setup"/>
     <memberTool name="Trajectory"/>
-    <memberTool name="tool_4"/>
     <memberTool name="Hide Selected"/>
     <memberTool name="Autofocus"/>
   </toolshelf>
@@ -205,11 +202,11 @@
 
   <toolshelf name="IO" label="IO">
     <memberTool name="ReplaceString"/>
-    <memberTool name="WriteFiles"/>
     <memberTool name="mImporter"/>
-    <memberTool name="MB3"/>
     <memberTool name="FarmCopy"/>
     <memberTool name="toRAT"/>
+    <memberTool name="SetPP"/>
+    <memberTool name="SB_OCIO"/>
   </toolshelf>
 
   <toolshelf name="deform" label="Deform">
@@ -291,9 +288,9 @@
     <memberTool name="geometry_sphere"/>
     <memberTool name="geometry_tube"/>
     <memberTool name="geometry_torus"/>
+    <memberTool name="geometry_line"/>
     <memberTool name="geometry_grid"/>
     <memberTool name="object_null"/>
-    <memberTool name="geometry_line"/>
     <memberTool name="geometry_circle"/>
     <memberTool name="sop_curve"/>
     <memberTool name="geometry_drawcurve"/>
