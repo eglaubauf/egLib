@@ -53,8 +53,6 @@ def run():
     dist.setInput(0, start)
     dist.setInput(1, end)
 
-
-
     #NetworkBox
     nBox = obj.createNetworkBox()
     nBox.addItem(start)
