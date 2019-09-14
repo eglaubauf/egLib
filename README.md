@@ -5,7 +5,7 @@
 
 Currently reworking and refactoring all the code and assets - do not use or use it if you know what you are doing only - this could seriously break stuff at the moment. 
 
-### NEW 04/2018
+### Previous Edits
 
 1. Shelves!
 2. Fixes (iSaveDate, replaceString)
@@ -14,8 +14,6 @@ Currently reworking and refactoring all the code and assets - do not use or use 
     - copyToFarm: Copies all Linked Textures and Geometry to $HSITE and changes the strings - even in locked OTLs as the principled Shaders and so on
 
 When there are problems contact me via Twitter, or raise an Issue on Github. Thank you. 
-
-### NEW 03/2018: 
 
 1. Materialbuilder:
 This script will build a Material Tree based on a File Selection 
@@ -27,7 +25,6 @@ Easy transfer to a Farm is possible with this technique.
 This script will import Geometry Files based on their name into separate Nodes. 
 The Geometry is parsed for "Collide" and "Render". Renderfiles can optionially loaded in as Packed Disk Primitives. 
 (Selection Dialog)
-
 
 
 
