@@ -1,6 +1,10 @@
 # egLib
 #A collection of scripts for SideFx Houdini
 
+### 09/2019
+
+Currently reworking and refactoring all the code and assets - do not use or use it if you know what you are doing only - this could seriously break stuff at the moment. 
+
 ### NEW 04/2018
 
 1. Shelves!
