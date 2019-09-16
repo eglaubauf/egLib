@@ -26,7 +26,6 @@ This script will copy data to the HSITE Directory.
 Files will be sorted into Directories by materialbuilder name. TopLevel Textures will not be sorted. 
 Works recursevly. 
 Environmentmaps from lights will also be copied to the HSITE directory. 
-Please specifiy Project/Directory names as wanted below.
 TODO: implement sorting based on connected materials. 
 
 
@@ -37,10 +36,7 @@ Web: www.elmar-glaubauf.at
 import hou
 import re
 
-
-
 ########CONFIG ME HERE ###########
-project = "Obscure"
 geo = "geo"
 tex = "tex"
 light = "light"
@@ -57,8 +53,6 @@ def run():
     num, msg = hou.ui.readMultiInput(message, labels, buttons=('Ok', 'Cancel'))
     if num == 1:
         return
-
-
 
     mat = hou.node("/mat")
     nodes = mat.children()
@@ -83,7 +77,6 @@ def changeMats(nodes, this, that, count):
             if p.parmTemplate().type() == hou.parmTemplateType.String:
                 # Get Parm as String
                 s = p.evalAsString()
-              
                 if s.find(this) is not -1 :
                     newS = s.replace(this, that)
                     p.set(newS)
@@ -95,8 +88,6 @@ def changeMats(nodes, this, that, count):
             count = changeMats(children, this, that, count)
             name = "materials"
     return count
-
-
 
 def changeGeo(nodes, this, that, count):
     for n in nodes:
@@ -114,7 +105,6 @@ def changeGeo(nodes, this, that, count):
                         sop.parm("file").set(newS)
                         count += 1
     return count
-
 
 def changeLights(nodes,  this, that):
     count = 0

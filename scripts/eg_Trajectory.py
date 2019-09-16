@@ -44,7 +44,7 @@ def run():
             geoNode = obj.createNode("geo")
             geoNode.setName("trajectory", True)
             geoNode.moveToGoodPosition()
-            geoNode.children()[0].destroy()
+            #geoNode.children()[0].destroy()
             
             trail = geoNode.createNode("qLib::motion_trail_ql")
             trail.parm('target').set(selNodes[0].path())

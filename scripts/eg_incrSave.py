@@ -3,7 +3,7 @@
 #####################################
 #
 # Based and adapted from  Niklas Rosenstein
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2019  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,7 @@
 """This script increments the number at the end of the current scene's name and
 saves it as a new file. If there is no number at the end, it will append a
 new number suffix and start from "1".  It also will add the current Date in
-reverse form (YYMMDD) to the Filename as a prefix.
+reverse form (YYYYMMDD) to the Filename as a prefix.
 
 Feel free to comment/edit/contact me for further development.
 Currently only tested on Windows
@@ -44,7 +44,7 @@ import datetime
 #################################
 new_suffix_format = '_001'
 moveOldFiles = True
-oldDir = "_old"
+oldDir = "versions"
 #######################################
 #CONFIGURATION END
 #######################################
@@ -128,22 +128,25 @@ def addDate(basename):
     #############################################
 def moveOldFileToDir(oldPathname, oldBasename):
     oldpath = oldPathname + oldBasename
-    myDir = oldPathname+oldDir
-    if os.path.isdir(myDir):
-        newpath = oldPathname + "/" + oldDir + "/" + oldBasename
-        os.rename(oldpath, newpath)
-    else:
-        newDir = oldPathname+ "/" + oldDir
-        os.mkdir(newDir)
-        newpath = oldPathname + "/" + oldDir + "/" + oldBasename
+    oldFileDir = oldPathname+oldDir
+    #Skip on frist save
+    if not os.path.exists(oldpath):
+        print(oldpath)
+        return
+    if not os.path.exists(oldFileDir):
+        os.mkdir(oldFileDir)
+    if os.path.isdir(oldFileDir):
+        newpath = oldFileDir + "/" + oldBasename
+        print(newpath)
         os.rename(oldpath, newpath)
     return
     
-    ########################################
-    #Get Data from Existing File and Iterate
-    #########################################
-def getDatafromCurrentFile():
-        #Get Data from Current File
+
+    #################################
+    #Main Call
+    ################################
+def run():
+    #Get Data from Current File
     hip = hou.hipFile
     filename = hip.path()
     basename = hip.basename()
@@ -164,12 +167,5 @@ def getDatafromCurrentFile():
         moveOldFileToDir(oldPath, oldBasename)
     return
 
-    #################################
-    #Main Call
-    ################################
-def main():
-    getDatafromCurrentFile()
-    return
+    
 
-
-main()

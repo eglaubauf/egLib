@@ -2,7 +2,7 @@
 #LICENSE                            #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2019  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,16 +39,30 @@ def run():
     #Set Context
     obj = hou.node("/obj")
 
-    #Create Nodes
+    start = None
+    end = None
+    nodes = hou.selectedNodes()
+    move = False
+    if len(nodes) is 0:
+        move = True
+        #Create Nodes
+        start = obj.createNode("null")
+        start.setName("start", True)
+        start.parm("tx").set("2")
+
+        end = obj.createNode("null")
+        end.setName("end", True)
+    elif len(nodes) == 1:
+       
+        start = nodes[0]
+        end = obj.createNode("null")
+        end.setName("end", True)
+    else:
+        start = nodes[0]
+        end = nodes[1]
+
+    #Create Dist Node
     dist = obj.createNode("qLib::distance_ql")
-
-    start = obj.createNode("null")
-    start.setName("start", True)
-    start.parm("tx").set("2")
-
-    end = obj.createNode("null")
-    end.setName("end", True)
-
     #Connect
     dist.setInput(0, start)
     dist.setInput(1, end)
@@ -60,6 +74,7 @@ def run():
     nBox.addItem(dist)
 
     #Move
-    start.moveToGoodPosition()
+    if move is True:
+        start.moveToGoodPosition()
     end.moveToGoodPosition()
     dist.moveToGoodPosition()
