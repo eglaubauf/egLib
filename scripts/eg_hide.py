@@ -2,7 +2,7 @@
 #LICENSE                            #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2019  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -30,14 +30,14 @@ Web: www.elmar-glaubauf.at
 
 import hou
 
-def run(kwargs):
+def run():
 
     #Set Context
-    obj = hou.node("/obj")
     #Get Selection
-
+    obj = hou.selectedNodes()
+    #Toggle Selected
     visited = []
-    for n in obj.children():
+    for n in obj:
         if n in hou.selectedNodes():
             if n not in visited:
                 if n.isGenericFlagSet(hou.nodeFlag.Visible):

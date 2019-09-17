@@ -22,13 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will copy data to the HSITE Directory. 
-Files will be sorted into Directories by materialbuilder name. TopLevel Textures will not be sorted. 
-Works recursevly. 
-Environmentmaps from lights will also be copied to the HSITE directory. 
-Please specifiy Project/Directory names as wanted below.
-TODO: implement sorting based on connected materials. 
-
+This script converts imported textures in Houdini to .rat File Format.
 
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
@@ -43,7 +37,6 @@ import shutil
 extension = ".rat"
 
 ############END CONFIG ############
-
 
 
 #HelperClass
@@ -61,12 +54,12 @@ myList = []
 errors = []
 
 
-
 def run():
 
-    mat = hou.node("/mat")
-    nodes = mat.children()
+    #mat = hou.node("/mat")
+    #nodes = mat.children()
     
+    nodes = hou.selectedNodes()
     changeMats(nodes)
 
     convertFiles()
