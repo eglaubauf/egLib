@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will import Geometry Files based on their name into separate Nodes. 
+This script will import Geometry Files on Object Level based on their name into separate Nodes. 
 The Geometry is parsed for "Collide" and "Render". Renderfiles can optionially loaded in as Packed Disk Primitives. 
 (Selection Dialog)
 
@@ -58,19 +58,20 @@ def run():
         #Create File Node
         currNode = obj.createNode("geo", node_name = name )
         currNode.moveToGoodPosition()
-        c = currNode.children()
+        c = currNode.createNode("file", node_name = "file")
+        #c = currNode.children()
         
-        c[0].parm('file').set(s)
-        c[0].setName(name, True)
+        c.parm('file').set(s)
+        c.setName(name, True)
         #TO DO - Insert Menu Option her
         if "Render" in name:
             if not r_as_pprim:
-                c[0].parm('loadtype').set(4)
-                c[0].parm('viewportlod').set(0)
+                c.parm('loadtype').set(4)
+                c.parm('viewportlod').set(0)
         
         null = currNode.createNode("null")
         
-        null.setNextInput(c[0])
+        null.setNextInput(c)
         
         null.setName("OUT", True)
         null.setColor(hou.Color((0,0,0)))

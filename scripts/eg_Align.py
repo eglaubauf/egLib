@@ -2,7 +2,7 @@
 #LICENSE                            #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2019  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -39,16 +39,17 @@ def run():
 
     #Get Selected Nodes
     selNodes = hou.selectedNodes()
-    #Possible Choices
-    choices = ["Translate", "Rotate", "Scale", "Pivot" ]
-    defaultChoices = [0,1,2]
-    #Create Dialog
-    selected = hou.ui.selectFromList( choices , default_choices = defaultChoices, message="Reset Transforms", num_visible_rows=1)
 
     if len(selNodes) < 2:
         msg = ["Okay"]
         hou.ui.displayMessage("Please Select exactly 2 Nodes", msg, severity=hou.severityType.Message)
+        return
     else:
+        #Possible Choices
+        choices = ["Translate", "Rotate", "Scale", "Pivot" ]
+        defaultChoices = [0,1,2]
+        #Create Dialog
+        selected = hou.ui.selectFromList( choices , default_choices = defaultChoices, message="Reset Transforms", num_visible_rows=1)
         #Get Data out of Tuple
         for elem in selected:
             if elem == 0:
@@ -59,6 +60,8 @@ def run():
               scale = 1
             if elem == 3:
                 pivot = 1
+    
+   
 
     #For each selected Node Reset Transforms
     for index in range(len(selNodes)):

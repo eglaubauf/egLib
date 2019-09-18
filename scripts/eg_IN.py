@@ -2,7 +2,7 @@
 #LICENSE                            #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2019  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a black Null Node and prompts for a name
+This script creates a black Null Node appended to the current selection and prompts for a name
 
 Twitter: @eglaubauf 
 Web: www.elmar-glaubauf.at
