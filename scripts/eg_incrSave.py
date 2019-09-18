@@ -83,11 +83,7 @@ def increaseVersionNum(basename):
     if match:
         basename, number, ext = match.groups()
         if number:
-            #print basename
-            #print number
             basename += str(int(number) + 1).rjust(len(number), '0') + ext
-            #print basename
-            #print "-----"
         else:
             basename += new_suffix_format + ext
     else:
@@ -131,13 +127,11 @@ def moveOldFileToDir(oldPathname, oldBasename):
     oldFileDir = oldPathname+oldDir
     #Skip on frist save
     if not os.path.exists(oldpath):
-        print(oldpath)
         return
     if not os.path.exists(oldFileDir):
         os.mkdir(oldFileDir)
     if os.path.isdir(oldFileDir):
         newpath = oldFileDir + "/" + oldBasename
-        print(newpath)
         os.rename(oldpath, newpath)
     return
     

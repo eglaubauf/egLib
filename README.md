@@ -16,7 +16,7 @@ This library provides a set of Scripts:
 - makePlanarX.py - Flattens pointSelection in World X
 - makePlanarY.py - Flattens pointSelection in World Y
 - makePlanarZ.py - Flattens pointSelection in World Z
-- makeQCam.py   - make a cam with Frustum - needs qLib
+- makeQCam.py   - make a cam with QFrustum and QRig - needs qLib
 - measure.py - make a measure node from selected objects - if non selected create nulls instead
 - merge.py - merge selected with merge node (SOP) - Shortcut highly recommended (M works fine)
 - multiImporter.py - import multiple files (.bgeo, .abc, .fbx,...) into OBJ - Creates a OBJ_node with names for each selected file
@@ -24,7 +24,7 @@ This library provides a set of Scripts:
 - replaceString.py - search ALL nodes in the scene for all string-parms and replace a string if found
 - resetTrans.py - reset Transforms to zero (Components selectable) - OBJ
 - trajectory.py - create a visible trajectory for the selected object (OBJ) - needs Qlib installed
-- align.py  - align 2 nodes in OBJ
+- align.py  - matches transform of 2 nodes in OBJ
 
 #### Provided HDAs
 
