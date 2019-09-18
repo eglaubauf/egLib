@@ -27,25 +27,14 @@
     <memberTool name="TrajectoryQ"/>
     <memberTool name="Hide Selected"/>
     <memberTool name="Autofocus"/>
-    <memberTool name="ReplaceString0"/>
+    <memberTool name="ReplaceString1"/>
+    <memberTool name="multiImporter"/>
   </toolshelf>
 
-  <tool name="ReplaceString0" label="ReplaceString" icon="$ICONS/replace_text.png">
-    <script scriptType="python"><![CDATA[import eg_replaceString
-reload(eg_replaceString)
-eg_replaceString.run()]]></script>
-  </tool>
-
-  <tool name="TrajectoryQ" label="TrajectoryQ" icon="$ICONS/path.png">
-    <script scriptType="python"><![CDATA[import eg_trajectory
-reload(eg_trajectory)
-eg_trajectory.run()]]></script>
-  </tool>
-
-  <tool name="MakeQCam" label="MakeQCam" icon="$ICONS/camera.png">
-    <script scriptType="python"><![CDATA[import eg_makeQCam
-reload(eg_makeQCam)
-eg_makeQCam.run()]]></script>
+  <tool name="multiImporter" label="multiImporter" icon="PLASMA_App">
+    <script scriptType="python"><![CDATA[import eg_multiImporter
+reload(eg_multiImporter)
+eg_multiImporter.run()]]></script>
   </tool>
 
   <tool name="incrSave" label="incrSave" icon="$ICONS/save.png">
@@ -145,5 +134,23 @@ eg_resetTrans.run()]]></script>
     <script scriptType="python"><![CDATA[import eg_out
 reload(eg_out)
 eg_out.run(kwargs)]]></script>
+  </tool>
+
+  <tool name="TrajectoryQ" label="TrajectoryQ" icon="$ICONS/path.png">
+    <script scriptType="python"><![CDATA[import eg_trajectory
+reload(eg_trajectory)
+eg_trajectory.run()]]></script>
+  </tool>
+
+  <tool name="MakeQCam" label="MakeQCam" icon="$ICONS/camera.png">
+    <script scriptType="python"><![CDATA[import eg_makeQCam
+reload(eg_makeQCam)
+eg_makeQCam.run()]]></script>
+  </tool>
+
+  <tool name="ReplaceString1" label="ReplaceString" icon="$ICONS/replace_text.png">
+    <script scriptType="python"><![CDATA[import eg_replaceString
+reload(eg_replaceString)
+eg_replaceString.run()]]></script>
   </tool>
 </shelfDocument>
