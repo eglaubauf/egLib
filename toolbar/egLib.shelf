@@ -13,8 +13,6 @@
     <memberTool name="OUT"/>
     <memberTool name="IN"/>
     <memberTool name="Reset Transforms"/>
-    <memberTool name="Zero Extrude"/>
-    <memberTool name="RSQueue_JSON"/>
     <memberTool name="Align"/>
     <memberTool name="MakeQCam"/>
     <memberTool name="Connect Points"/>
@@ -30,12 +28,6 @@
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
   </toolshelf>
-
-  <tool name="multiImporter" label="multiImporter" icon="PLASMA_App">
-    <script scriptType="python"><![CDATA[import eg_multiImporter
-reload(eg_multiImporter)
-eg_multiImporter.run()]]></script>
-  </tool>
 
   <tool name="incrSave" label="incrSave" icon="$ICONS/save.png">
     <script scriptType="python"><![CDATA[import eg_incrSave
@@ -108,18 +100,6 @@ reload(eg_align)
 eg_align.run()]]></script>
   </tool>
 
-  <tool name="RSQueue_JSON" label="RSJQueue" icon="$ICONS/redshift.png">
-    <script scriptType="python"><![CDATA[import eg_rSQueue
-reload(eg_rSQueue)
-eg_rSQueue.run()]]></script>
-  </tool>
-
-  <tool name="Zero Extrude" label="Z-Extrude" icon="$ICONS/extrude.png">
-    <script scriptType="python"><![CDATA[import eg_zExtrude
-reload(eg_zExtrude)
-eg_zExtrude.run(kwargs)]]></script>
-  </tool>
-
   <tool name="Reset Transforms" label="ResetTrans" icon="$ICONS/reset_trans.png">
     <script scriptType="python"><![CDATA[import eg_resetTrans
 reload(eg_resetTrans)
@@ -152,5 +132,11 @@ eg_makeQCam.run()]]></script>
     <script scriptType="python"><![CDATA[import eg_replaceString
 reload(eg_replaceString)
 eg_replaceString.run()]]></script>
+  </tool>
+
+  <tool name="multiImporter" label="multiImporter" icon="PLASMA_App">
+    <script scriptType="python"><![CDATA[import eg_multiImporter
+reload(eg_multiImporter)
+eg_multiImporter.run()]]></script>
   </tool>
 </shelfDocument>
