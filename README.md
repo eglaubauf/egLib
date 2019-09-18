@@ -1,6 +1,6 @@
 # egLib
 
-A collection of scripts for SideFx Houdini - free for all purposes
+A collection of scripts for SideFx Houdini - free for all purposes - no selling/reselling
 
 ### Features:
 
@@ -11,7 +11,7 @@ This library provides a set of Scripts:
 - connectPoints.py - connects polyPoints
 - flipBook.py - makes a Flipbook from the current camera without croppin/scaling
 - hide.py - toggles hide afrom selected nodes from viewport
-- IN.py - Green Null with handy rename panel provides; appends to selected node (SOP), shortcut recommended
+- IN.py - Green Null with handy rename panel provided; appends to selected node (SOP), shortcut recommended
 - incrSave.py - save with date, name, version - iterates version(if necessary also date) on each save
 - makePlanarX.py - Flattens pointSelection in World X
 - makePlanarY.py - Flattens pointSelection in World Y
@@ -20,7 +20,7 @@ This library provides a set of Scripts:
 - measure.py - make a measure node from selected objects - if non selected create nulls instead
 - merge.py - merge selected with merge node (SOP) - Shortcut highly recommended (M works fine)
 - multiImporter.py - import multiple files (.bgeo, .abc, .fbx,...) into OBJ - Creates a OBJ_node with names for each selected file
-- out.py - Black Null with handy rename panel provides; appends to selected node (SOP); shortcut recommended
+- out.py - Black Null with handy rename panel provided; appends to selected node (SOP); shortcut recommended
 - replaceString.py - search ALL nodes in the scene for all string-parms and replace a string if found
 - resetTrans.py - reset Transforms to zero (Components selectable) - OBJ
 - trajectory.py - create a visible trajectory for the selected object (OBJ) - needs Qlib installed
@@ -68,7 +68,7 @@ sys.path.append("<PathToLib>\scripts")
 For enabling the HDAs your Houdini.env needs to be extended (add this line to your houdini.env):
 
 ```
-HOUDINI_OTLSCAN_PATH=$HOUDINI_OTLSCAN_PATH;<pathToEgLib>\otls;&
+HOUDINI_OTLSCAN_PATH=$HOUDINI_OTLSCAN_PATH;<PathToLib>\otls;&
 ```
 
 ### Notes:
