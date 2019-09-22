@@ -40,6 +40,7 @@ This library provides a set of Scripts:
 - EdgeDisplacement.hdalc - EdgeDisplacement (PolyEdges)
 - LineGlow.hdalc - Shader
 - MacBethMantra.hdalc - a MacBethChart for Mantra
+- MacBethMantra.hdalc - a MacBethChart for Redshift
 - MoGraph_Shader - MoGraphStuff as known from other tools
 - MoGraph_Step - MoGraphStuff as known from other tools
 - MoGraph_Target - MoGraphStuff as known from other tools
