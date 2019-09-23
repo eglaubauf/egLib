@@ -47,6 +47,8 @@ This library provides a set of Scripts:
 - Mograph_Displace.hda - MoGraphStuff as known from other tools
 - Mograph_Plain.hda - MoGraphStuff as known from other tools
 - Mograph_Random.hda - MoGraphStuff as known from other tools
+- HighToLow.hda -  AutoUVs the LowRes Object and transfers UVs from Low to HighPoly - (SideFx)GameDev Logic inside
+
 
 ### additional Infos
 
