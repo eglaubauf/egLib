@@ -28,7 +28,7 @@ This library provides a set of Scripts:
 
 #### Provided HDAs
 
-
+- HexGrid - Creates a Hexagonal Grid
 - PolyCapFix - Fixes Holes
 - VolumeDisplacement.hdalc - Does VolumeDisplacement
 - VoronoiTransform.hdalc - Breaks things and Transforms Pieces
