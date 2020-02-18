@@ -1,0 +1,13 @@
+{
+    "env": [
+        {
+            "HOUDINI_OTLSCAN_PATH": "D:/Git/egLib/otls",
+        },
+        {
+            "EGICONS": "D:/Git/egLib/icons"
+        }
+        
+    ]
+
+}
+
