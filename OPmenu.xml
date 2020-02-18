@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menuDocument>
+     <menu>
+    
+            <!--***********************************-->
+            <scriptItem id="applyRSMAT">
+                    <labelExpression>
+<![CDATA[
+n = kwargs.get("node", None)
+if n.isSubNetwork() == True or n.type().category() != hou.objNodeTypeCategory():
+    return "Unavailable in this Context"
+else:    
+    return "Apply RS Material"
+]]>
+                    </labelExpression>
+                <scriptCode>
+<![CDATA[
+n = kwargs.get("node", None)
+if n.isSubNetwork() == True or n.type().category() != hou.objNodeTypeCategory():
+    hou.ui.displayMessage('Please select OBJ-Nodes to create Materials')
+else:    
+    import eg_applyRSMat
+    reload(eg_applyRSMat)
+    eg_applyRSMat.ApplyRSMat()
+]]>
+                </scriptCode>
+            </scriptItem>
+        <!--***********************************-->        
+    </menu>
+</menuDocument>
