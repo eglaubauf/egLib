@@ -32,13 +32,14 @@ import hou
 
 def run():  # our cam object
     """Runs the Script"""
-    scene_pane_tab = hou.ui.curDesktop().paneTabOfType(hou.paneTabType.SceneViewer)
-    if scene_pane_tab:
-        cam = scene_pane_tab.curViewport().camera()
+
+    pane_tab = hou.ui.curDesktop().paneTabOfType(hou.paneTabType.SceneViewer)
+    if pane_tab:
+        cam = pane_tab.curViewport().camera()
     if not cam:
         cam = create_cam()
-        scene_pane_tab.curViewport().saveViewToCamera(cam)
-        scene_pane_tab.curViewport().setCamera(cam)
+        pane_tab.curViewport().saveViewToCamera(cam)
+        pane_tab.curViewport().setCamera(cam)
         set_cam_for_render(cam)
 
     else:
