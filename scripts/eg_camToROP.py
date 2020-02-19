@@ -34,6 +34,7 @@ def run():  # our cam object
     """Runs the Script"""
 
     pane_tab = hou.ui.curDesktop().paneTabOfType(hou.paneTabType.SceneViewer)
+
     if pane_tab:
         cam = pane_tab.curViewport().camera()
     if not cam:
@@ -41,7 +42,6 @@ def run():  # our cam object
         pane_tab.curViewport().saveViewToCamera(cam)
         pane_tab.curViewport().setCamera(cam)
         set_cam_for_render(cam)
-
     else:
         hou.ui.displayMessage("No Viewport found")
         # Check if this a PaneTab of Type SceneViewer
@@ -49,13 +49,17 @@ def run():  # our cam object
 
 def set_cam_for_render(cam):
     """Sets the given Camera in the active Render ROP"""
+
     out = hou.node("/out")
+
     for o in out.children():
         if o.type().name() == "Redshift_ROP":
             o.parm("RS_renderCamera").set(cam.path())
             return
+
     rop = out.createNode("Redshift_ROP")
     rop.parm("RS_renderCamera").set(cam.path())
+
     return
 
 
