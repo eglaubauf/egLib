@@ -2,7 +2,7 @@
 # LICENSE                            #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
