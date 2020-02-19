@@ -1,5 +1,5 @@
 #####################################
-#LICENSE                            #
+# LICENSE                           #
 #####################################
 #
 # Copyright (C) 2020  Elmar Glaubauf
@@ -27,26 +27,25 @@ This script will create a Redshift Node Network based on a file selection
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+
 import hou
 
 
 class TakesFromCams():
     """Creates Takes from the Selected Cams for the First RS-ROP found"""
     def __init__(self):
-        self.nodes = self.get_nodes()
         self.count = 0
-        self.rop = self.set_rop()
+        self.cams = self.get_cams()
+        self.rop = self.setup_rop()
         self.create_takes()
         self.display_message()
 
-
-    def get_nodes(self):
+    def get_cams(self):
         """Calls the Selected Camera Nodes"""
         cams = []
         for c in hou.selectedNodes():
             if c.type().name() == "cam":
                 cams.append(c)
-
         return cams
 
     def setup_rop(self):
@@ -61,26 +60,25 @@ class TakesFromCams():
         rop = out.createNode("Redshift_ROP")
         return rop
 
-
     def create_takes(self):
-        """Iterates over all selected Nodes and applies a Material with Naming for each"""
-        if not self.nodes: # Return if there are no Cam Nodes
+        """Iterates over all selected Nodes and creates Takes"""
+        if not self.cams:  # Return if there are no Cam Nodes
             return
 
         master_take = hou.takes.currentTake()
 
-        my = hou.takes.currentTake()
-        for n in self.nodes:
-            #Check against OBJ-Level Nodes and Subnets
-                child = master_take.addChildTake(n.name()+"_take")
-                child.
-                child.addParmTuplesFromNode(self.rop)
-                self.count += 1
-
+        for c in self.cams:
+            # Check against OBJ-Level Nodes and Subnets
+            child = master_take.addChildTake('take_' + c.name())
+            hou.takes.setCurrentTake(child)
+            child.addParmTuple(self.rop.parm("RS_renderCamera").tuple())
+            self.rop.parm("RS_renderCamera").set(c.path())
+            self.count += 1
+        hou.takes.setCurrentTake(master_take)
 
     def display_message(self):
         """Displays the Count of Created Materials to the User"""
         if self.count > 0:
-            hou.ui.displayMessage(str(self.count) +' Takes have been created')
+            hou.ui.displayMessage(str(self.count) + ' Takes have been created')
         else:
             hou.ui.displayMessage('Please select Camera-Nodes to create Takes')
