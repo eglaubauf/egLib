@@ -1,5 +1,5 @@
 #####################################
-#LICENSE                            #
+# LICENSE                            #
 #####################################
 #
 # Copyright (C) 2017  Elmar Glaubauf
@@ -29,23 +29,25 @@ Web: www.elmar-glaubauf.at
 """
 import hou
 
-def run(): # our cam object
 
-     
-    scene_pane_tab = hou.ui.curDesktop().paneTabOfType(hou.paneTabType.SceneViewer) #SceneViewer 
+def run():  # our cam object
+    """Runs the Script"""
+    scene_pane_tab = hou.ui.curDesktop().paneTabOfType(hou.paneTabType.SceneViewer)
     if scene_pane_tab:
         cam = scene_pane_tab.curViewport().camera()
-        if not cam:
-            cam = create_cam()
-            scene_pane_tab.curViewport().saveViewToCamera(cam)
-            scene_pane_tab.curViewport().setCamera(cam)
+    if not cam:
+        cam = create_cam()
+        scene_pane_tab.curViewport().saveViewToCamera(cam)
+        scene_pane_tab.curViewport().setCamera(cam)
         set_cam_for_render(cam)
 
     else:
-        hou.ui.displayMessage("No Viewport found") #Check if this a PaneTab of Type SceneViewer
+        hou.ui.displayMessage("No Viewport found")
+        # Check if this a PaneTab of Type SceneViewer
 
 
 def set_cam_for_render(cam):
+    """Sets the given Camera in the active Render ROP"""
     out = hou.node("/out")
     for o in out.children():
         if o.type().name() == "Redshift_ROP":
@@ -58,14 +60,14 @@ def set_cam_for_render(cam):
 
 def create_cam():
 
-    #Set Context
+    # Set Context
     obj = hou.node("/obj")
 
-    #Create Camera
+    # Create Camera
     cam = obj.createNode("cam")
-    
+
     cam.parm('resx').set('1920')
     cam.parm('resy').set('1080')
-    cam.parm('near').set('0.01') 
-  
+    cam.parm('near').set('0.01')
+
     return cam
