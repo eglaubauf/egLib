@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will connect two Points. Does currently not work trough additional edges
+This script will create a Redshift Node Network based on a file selection
 
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
@@ -30,32 +30,30 @@ Web: www.elmar-glaubauf.at
 
 import toolutils
 import hou
+
+
 def run():
-        
-    #Get GeometrySelection 
+
+    # Get GeometrySelection
     geoSelection = toolutils.sceneViewer().selectGeometry()
 
-    #Selection
+    # Selection
     selectionStrings = geoSelection.selectionStrings()
 
-    ####NETWORKPANE STUFF
-    #Get Selected Node in Network Pane
+    # NETWORKPANE STUFF
+    # Get Selected Node in Network Pane
     selNode = hou.selectedNodes()
 
-    #Create Split Node
+    # Create Split Node
     split = selNode[0].parent().createNode("polycut")
-    #Connect
-    split.setInput(0, selNode[0],0)
+    # Connect
+    split.setInput(0, selNode[0], 0)
 
-    #Insert Points???
-    ##WRONG FORMAT
+    # WRONG FORMAT
     split.parm('cutpoints').set(selectionStrings[0])
     split.parm('strategy').set("cut")
 
-    #Arrange Stuff
+    # Arrange Stuff
     split.moveToGoodPosition()
     split.setDisplayFlag(True)
-    split.setSelected(1,1,0) 
-
-
-
+    split.setSelected(1, 1, 0)

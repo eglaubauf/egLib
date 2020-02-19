@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2019  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,48 +24,42 @@
 """
 This script creates a black Null Node appended to the current selection and prompts for a name
 
-Twitter: @eglaubauf 
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
 import objecttoolutils
-import soptoolutils
 import re
 import hou
 
 
 def run(kwargs):
-    #Get Selected Node
+    # Get Selected Node
     selNodes = hou.selectedNodes()
 
-    #Create NULL
+    # Create NULL
     kwargs['bbox'] = hou.BoundingBox(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
     mrg = objecttoolutils.genericTool(kwargs, 'null')
 
     curNode = kwargs["pane"].currentNode()
 
-    #newnode = objecttoolutils.genericCameraLightTool(kwargs, 'cam', 'cam1',
-    #       (not kwargs['ctrlclick'] and not kwargs['cmdclick']))
-
-    #Make InputField
+    # Make InputField
     name = hou.ui.readInput("Call me Names", title="Name")[1]
 
-    #Remove Special Chars and replace them with "_"
+    # Remove Special Chars and replace them with "_"
     for k in name.split("\n"):
         name = re.sub(r"[^a-zA-Z0-9]+", ' ', k)
     name = name.upper()
     name = name.replace(" ", "_")
 
-
-    #Connect Node to Predecessor
+    # Connect Node to Predecessor
     if not kwargs['shiftclick']:
         for x, node in enumerate(selNodes):
             mrg.setNextInput(node)
 
-    #SetInterface
+    # SetInterface
     curNode.setName(name, True)
-    curNode.setColor(hou.Color((0,1,0)))
+    curNode.setColor(hou.Color((0, 1, 0)))
 
     curNode.setDisplayFlag(True)
     curNode.setRenderFlag(True)

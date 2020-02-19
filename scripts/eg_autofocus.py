@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,25 +22,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will create a camera with autofocus functionality. 
-It is based on the work of Juraj Tomori. (https://jurajtomori.wordpress.com)
+This script will create a Redshift Node Network based on a file selection
 
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
-
 import hou
 
-def run(): # our cam object
-    
+
+def run():  # our cam object
+
     obj = hou.node("/obj")
 
     cam = createCam()
     setAutoFocus(cam)
-    
-    #Create Preview Frame
+
+    # Create Preview Frame
     prev = obj.createNode("null")
     prev.setName("AF_Preview", True)
 
@@ -54,8 +52,7 @@ def run(): # our cam object
     parm_dict = {"tz": "-ch( opinputpath('.', 0)+'/focus')"}
     prev.setParmExpressions(parm_dict)
 
-
-    #Create Dummy Target
+    # Create Dummy Target
     target = obj.createNode("null")
     target.setName("Target", True)
     target.parm("tz").set(-1)
@@ -64,20 +61,21 @@ def run(): # our cam object
     prev.moveToGoodPosition()
     target.moveToGoodPosition()
 
+
 def createCam():
 
-            #Set Context
+    # Set Context
     obj = hou.node("/obj")
 
-    #Create Camera
+    # Create Camera
     cam = obj.createNode("cam")
     cam.parm('resx').set('1920')
     cam.parm('resy').set('1080')
-    cam.parm('near').set('0.01') 
+    cam.parm('near').set('0.01')
 
-    cam_group = cam.parmTemplateGroup()   
+    cam_group = cam.parmTemplateGroup()
     cam_folder = hou.FolderParmTemplate("folder", "Autofocus")
-    
+
     cam_folder.addParmTemplate(hou.FloatParmTemplate("distance", "Distance", 1))
     cam_folder.addParmTemplate(hou.StringParmTemplate("target", "Target", 1))
 
@@ -85,6 +83,7 @@ def createCam():
     cam.setParmTemplateGroup(cam_group)
 
     return cam
+
 
 def setAutoFocus(cam):
 
@@ -126,7 +125,7 @@ def setAutoFocus(cam):
     return focus_dist"""
 
     parm_dict = {"distance": afScript}
-    cam.setParmExpressions(parm_dict, language= hou.exprLanguage.Python )
+    cam.setParmExpressions(parm_dict, language=hou.exprLanguage.Python)
 
     parm_dict = {"focus": "ch('distance')"}
     cam.setParmExpressions(parm_dict)

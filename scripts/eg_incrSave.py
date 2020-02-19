@@ -1,9 +1,9 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
 # Based and adapted from  Niklas Rosenstein
-# Copyright (C) 2019  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -40,32 +40,34 @@ import re
 import datetime
 
 #################################
-#CONFIGURATION
+# CONFIGURATION
 #################################
 new_suffix_format = '_001'
 moveOldFiles = True
 oldDir = "versions"
 #######################################
-#CONFIGURATION END
+# CONFIGURATION END
 #######################################
 
 
-    ##############################
-    #Check if file already exists and Save
-    ##############################
+##############################
+# Check if file already exists and Save
+##############################
 def save(filename):
     if os.path.isfile(filename):
         overwrite = hou.ui.displayConfirmation('The file "{}" already exists. Do you want to overwrite it?' .format(filename))
         if not overwrite:
             return
-    #Save
+    # Save
     hou.hipFile.save(filename)
     return()
 
 
-    ####################
-    # Get License Info
-    ####################
+####################
+# Get License Info
+####################
+
+
 def getLicenseType():
     if hou.licenseCategory() == hou.licenseCategoryType.Indie:
         return ".hiplc"
@@ -74,9 +76,11 @@ def getLicenseType():
     else:
         return ".hipnc"
 
-    ###############################
-    #Increment Versionnumber by one
-    ###############################
+###############################
+# Increment Versionnumber by one
+###############################
+
+
 def increaseVersionNum(basename):
     regex = re.compile('(.*)((?<=_)\d+)(\.\w+)')
     match = regex.match(basename)
@@ -97,16 +101,18 @@ def increaseVersionNum(basename):
         basename += new_suffix_format + ext
     return basename
 
-    #############################################
-    #Add Date if not existing in basename already
-    #############################################
+#############################################
+# Add Date if not existing in basename already
+#############################################
+
+
 def addDate(basename):
     today = datetime.date.today().strftime("%y%m%d")
-    #Starts with number?
+    # Starts with number?
     regDate = re.compile('^[0-9]{6}')
     match = regDate.match(basename)
     if match:
-        #check if current date
+        # check if current date
         regDate = basename[:6]
         if today != regDate:
             basename = basename[6:]
@@ -115,17 +121,19 @@ def addDate(basename):
             else:
                 basename = today + "_" + basename
     else:
-        #add current date in front
+        # add current date in front
         basename = today + "_" + basename
     return basename
 
-    #############################################
-    #Move old File to a defined directory
-    #############################################
+#############################################
+# Move old File to a defined directory
+#############################################
+
+
 def moveOldFileToDir(oldPathname, oldBasename):
     oldpath = oldPathname + oldBasename
-    oldFileDir = oldPathname+oldDir
-    #Skip on frist save
+    oldFileDir = oldPathname + oldDir
+    # Skip on frist save
     if not os.path.exists(oldpath):
         return
     if not os.path.exists(oldFileDir):
@@ -134,32 +142,29 @@ def moveOldFileToDir(oldPathname, oldBasename):
         newpath = oldFileDir + "/" + oldBasename
         os.rename(oldpath, newpath)
     return
-    
 
-    #################################
-    #Main Call
-    ################################
+
+#################################
+# Main Call
+################################
 def run():
-    #Get Data from Current File
+    # Get Data from Current File
     hip = hou.hipFile
     filename = hip.path()
     basename = hip.basename()
-    pathname = re.sub(basename+"$", '', filename)
+    pathname = re.sub(basename + "$", '', filename)
 
-    #Save Old name for Later
+    # Save Old name for Later
     oldPath = pathname
     oldBasename = basename
-    #Correct Date if necessary
+    # Correct Date if necessary
     basename = addDate(basename)
-    #Increase Version
+    # Increase Version
     basename = increaseVersionNum(basename)
-    #Concat again
+    # Concat again
     filename = pathname + basename
-    #Save
+    # Save
     save(filename)
     if moveOldFiles is True:
         moveOldFileToDir(oldPath, oldBasename)
     return
-
-    
-

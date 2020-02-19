@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#  LICENSE                          #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -35,41 +35,42 @@ import toolutils
 import os
 import hou
 
+
 def run():
     sc = toolutils.sceneViewer()
 
-    #Get Current View
+    # Get Current View
     view = sc.curViewport()
 
-    #Settings
+    # Settings
     s = sc.flipbookSettings()
 
-    #Set FrameRange
+    # Set FrameRange
     range = (hou.playbar.playbackRange())
     s.frameRange(range)
 
-    #Set Resolution
+    # Set Resolution
     cam = view.camera()
-    if cam != None: 
-        res = (cam.evalParm('resx'),cam.evalParm('resy'))
+    if cam is not None:
+        res = (cam.evalParm('resx'), cam.evalParm('resy'))
         s.resolution(res)
         s.cropOutMaskOverlay(True)
 
-        #Set Output Name and Path
+        # Set Output Name and Path
         node = cam.parent().parent()
         if node.type().name() != "qLib::shot_ql::1":
             path = cam.name()
         else:
             path = cam.parent().parent().name()
-            
-        dir = hou.getenv('HIP')+'/'+'flipbook/' + path
-        
+
+        dir = hou.getenv('HIP') + '/' + 'flipbook/' + path
+
         if not os.path.isdir(dir):
-                os.makedirs(dir)
+            os.makedirs(dir)
         path = '$HIP/flipbook/' + path + '/' + path + '_$F4.jpg'
-        
+
         s.output(path)
 
-        sc.flipbook(viewport = view, settings=s, open_dialog = False)
+        sc.flipbook(viewport=view, settings=s, open_dialog=False)
     else:
         hou.ui.displayMessage('Please create a Camera')

@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#           LICENSE                 #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will import Geometry Files on Object Level based on their name into separate Nodes. 
-The Geometry is parsed for "Collide" and "Render". Renderfiles can optionially loaded in as Packed Disk Primitives. 
+This script will import Geometry Files on Object Level based on their name into separate Nodes.
+The Geometry is parsed for "Collide" and "Render". Renderfiles can optionially loaded in as Packed Disk Primitives.
 (Selection Dialog)
 
 Twitter: @eglaubauf
@@ -32,52 +32,49 @@ Web: www.elmar-glaubauf.at
 
 
 import hou
-import os
-import re
-
 obj = hou.node("/obj")
 
+
 def run():
-    files = hou.ui.selectFile(title="Please choose Files to import", collapse_sequences = False, multiple_select = True, file_type = hou.fileType.Geometry)
-    if files is "":
+    files = hou.ui.selectFile(title="Please choose Files to import", collapse_sequences=False, multiple_select=True, file_type=hou.fileType.Geometry)
+    if files == "":
         return
-    
+
     r_as_pprim = hou.ui.displayMessage("RenderMesh as Packed Primitive?", buttons=("Yes", "No"))
-            
+
     strings = files.split(";")
-    
+
     for i, s in enumerate(strings):
         s = s.rstrip(' ')
         s = s.lstrip(' ')
-        
-        #Get Name of File
+
+        # Get Name of File
         name = s.split(".")
         k = name[0].rfind("/")
-        name = name[0][k+1:]
-    
-        #Create File Node
-        currNode = obj.createNode("geo", node_name = name )
+        name = name[0][k + 1:]
+
+        # Create File Node
+        currNode = obj.createNode("geo", node_name=name)
         currNode.moveToGoodPosition()
-        c = currNode.createNode("file", node_name = "file")
-        #c = currNode.children()
-        
+        c = currNode.createNode("file", node_name="file")
+        # c = currNode.children()
+
         c.parm('file').set(s)
         c.setName(name, True)
-        #TO DO - Insert Menu Option her
+        # TO DO - Insert Menu Option her
         if "Render" in name:
             if not r_as_pprim:
                 c.parm('loadtype').set(4)
                 c.parm('viewportlod').set(0)
-        
+
         null = currNode.createNode("null")
-        
+
         null.setNextInput(c)
-        
+
         null.setName("OUT", True)
-        null.setColor(hou.Color((0,0,0)))
-        
+        null.setColor(hou.Color((0, 0, 0)))
+
         null.setDisplayFlag(True)
         null.setRenderFlag(True)
-        
+
         null.moveToGoodPosition()
-        

@@ -1,5 +1,5 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
 # Copyright (C) 2020  Elmar Glaubauf
@@ -30,6 +30,7 @@ Web: www.elmar-glaubauf.at
 import hou
 import eg_createRSMat
 
+
 class ApplyRSMat():
     """Applies an RS MAT to a Selection"""
     def __init__(self):
@@ -38,17 +39,16 @@ class ApplyRSMat():
         self.count = 0
         self.create_materials()
         self.display_message()
-        
 
     def get_nodes(self):
         """Calls the Selected Nodes"""
         return hou.selectedNodes()
 
     def create_materials(self):
-        """Iterates over all selected Nodes and applies a Material with Naming for each"""
+        """Iterates over all selected Nodes and applies a Material"""
         for n in self.nodes:
-            #Check against OBJ-Level Nodes and Subnets
-            if n.type().category() != hou.objNodeTypeCategory(): 
+            # Check against OBJ-Level Nodes and Subnets
+            if n.type().category() != hou.objNodeTypeCategory():
                 break
             if not n.isSubNetwork():
                 m = eg_createRSMat.RSMat(self.context, n.name())
@@ -58,6 +58,6 @@ class ApplyRSMat():
     def display_message(self):
         """Displays the Count of Created Materials to the User"""
         if self.count > 0:
-            hou.ui.displayMessage(str(self.count) +' Materialnodes have been created')
+            hou.ui.displayMessage(str(self.count) + ' Materialnodes have been csreated')
         else:
             hou.ui.displayMessage('Please select OBJ-Nodes to create Materials')

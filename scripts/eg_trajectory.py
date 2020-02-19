@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,31 +24,27 @@
 """
 This script creates a Trajectory for the selected Node
 
-Twitter: @eglaubauf 
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
-import objecttoolutils
-import soptoolutils
-import re
 import hou
 
+
 def run():
-    #Get Selected Node
+    # Get Selected Node
     selNodes = hou.selectedNodes()
 
-    if selNodes: 
+    if selNodes:
         if len(selNodes) < 2:
             obj = hou.node("/obj")
             geoNode = obj.createNode("geo")
             geoNode.setName("trajectory", True)
             geoNode.moveToGoodPosition()
-            #geoNode.children()[0].destroy()
-            
+            # geoNode.children()[0].destroy()
+
             trail = geoNode.createNode("qLib::motion_trail_ql")
             trail.parm('target').set(selNodes[0].path())
-            #Create NULL
         else:
             hou.ui.displayMessage("Please Select just 1 Node", severity=hou.severityType.Message)
     else:

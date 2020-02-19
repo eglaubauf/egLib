@@ -1,5 +1,5 @@
 #####################################
-#LICENSE                            #
+#  LICENSE                            #
 #####################################
 #
 # Copyright (C) 2020  Elmar Glaubauf
@@ -29,6 +29,7 @@ Web: www.elmar-glaubauf.at
 """
 import hou
 
+
 class RSMat():
     """Creates an RS-Material in the given context"""
     def __init__(self, context=hou.node("/mat"), name="RedshiftMaterial"):
@@ -36,15 +37,15 @@ class RSMat():
         self.name = name
         self.material_builder = ""
         self.create_material()
-        
+
     def create_material(self):
         """Creates an RS-Material in the given context"""
-        #RS Material Builder
+        # RS Material Builder
         self.material_builder = self.mat.createNode("redshift_vopnet")
         self.material_builder.setName(self.name, True)
         self.material_builder.moveToGoodPosition()
 
-        #RS Material
+        # RS Material
         redshift_material = self.material_builder.children()[0]
         rs_mat = self.material_builder.createNode('redshift::Material')
         redshift_material.setInput(0, rs_mat, 0)
@@ -52,4 +53,4 @@ class RSMat():
     def get_path(self):
         """Returns the Path to the MaterialBuilder"""
         return self.material_builder.path()
-        #alternative: relativePathTo(base_node)--> str
+        # alternative: relativePathTo(base_node)--> str

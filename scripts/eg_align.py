@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2019  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,22 +22,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will align two Nodes at Object Level.
-It needs two nodes selected. The Second gets transformed to the first one.
-Transformation Mode (Translate, Rotate, Scale, Pivot) is choosable.
+This script will create a Redshift Node Network based on a file selection
 
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
-import soptoolutils
-import objecttoolutils
+
 import hou
 
-def run():
-    #helper var
-    translate = rotate = scale = uniform = pivot = 0
 
-    #Get Selected Nodes
+def run():
+    # helper var
+    translate = rotate = scale = pivot = 0
+
+    # Get Selected Nodes
     selNodes = hou.selectedNodes()
 
     if len(selNodes) < 2:
@@ -45,42 +43,40 @@ def run():
         hou.ui.displayMessage("Please Select exactly 2 Nodes", msg, severity=hou.severityType.Message)
         return
     else:
-        #Possible Choices
-        choices = ["Translate", "Rotate", "Scale", "Pivot" ]
-        defaultChoices = [0,1,2]
-        #Create Dialog
-        selected = hou.ui.selectFromList( choices , default_choices = defaultChoices, message="Reset Transforms", num_visible_rows=1)
-        #Get Data out of Tuple
+        # Possible Choices
+        choices = ["Translate", "Rotate", "Scale", "Pivot"]
+        defaultChoices = [0, 1, 2]
+        # Create Dialog
+        selected = hou.ui.selectFromList(choices, default_choices=defaultChoices, message="Reset Transforms", num_visible_rows=1)
+        # Get Data out of Tuple
         for elem in selected:
             if elem == 0:
-             translate = 1
+                translate = 1
             if elem == 1:
-             rotate = 1
+                rotate = 1
             if elem == 2:
-              scale = 1
+                scale = 1
             if elem == 3:
                 pivot = 1
-    
-   
 
-    #For each selected Node Reset Transforms
+    # For each selected Node Reset Transforms
     for index in range(len(selNodes)):
-        #Translate
+        # Translate
         if translate == 1:
             selNodes[index].parm('tx').set(selNodes[0].parm('tx').evalAsString())
             selNodes[index].parm('ty').set(selNodes[0].parm('ty').evalAsString())
             selNodes[index].parm('tz').set(selNodes[0].parm('tz').evalAsString())
-        #Rotate
+        # Rotate
         if rotate == 1:
             selNodes[index].parm('rx').set(selNodes[0].parm('rx').evalAsString())
             selNodes[index].parm('ry').set(selNodes[0].parm('ry').evalAsString())
             selNodes[index].parm('rz').set(selNodes[0].parm('rz').evalAsString())
-        #Scale
+        # Scale
         if scale == 1:
             selNodes[index].parm('sx').set(selNodes[0].parm('sx').evalAsString())
             selNodes[index].parm('sy').set(selNodes[0].parm('sy').evalAsString())
             selNodes[index].parm('sz').set(selNodes[0].parm('sz').evalAsString())
-        #Pivot
+        # Pivot
         if pivot == 1:
             selNodes[index].parm('px').set(selNodes[0].parm('px').evalAsString())
             selNodes[index].parm('py').set(selNodes[0].parm('py').evalAsString())

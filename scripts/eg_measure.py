@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#     LICENSE                       #
 #####################################
 #
-# Copyright (C) 2019  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,8 +22,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a Distance Measure Node with two nulls for easy movement attached. 
-qLib is required. 
+This script creates a Distance Measure Node with two nulls for easy movement attached.
+qLib is required.
 
 Needs qLib Library installed:  https://github.com/qLab/qLib-dev
 
@@ -33,19 +33,21 @@ Currently only tested on Windows
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
+
 import hou
 
+
 def run():
-    #Set Context
+    # Set Context
     obj = hou.node("/obj")
 
     start = None
     end = None
     nodes = hou.selectedNodes()
     move = False
-    if len(nodes) is 0:
+    if len(nodes) == 0:
         move = True
-        #Create Nodes
+        # Create Nodes
         start = obj.createNode("null")
         start.setName("start", True)
         start.parm("tx").set("2")
@@ -53,7 +55,7 @@ def run():
         end = obj.createNode("null")
         end.setName("end", True)
     elif len(nodes) == 1:
-       
+
         start = nodes[0]
         end = obj.createNode("null")
         end.setName("end", True)
@@ -61,19 +63,19 @@ def run():
         start = nodes[0]
         end = nodes[1]
 
-    #Create Dist Node
+    # Create Dist Node
     dist = obj.createNode("qLib::distance_ql")
-    #Connect
+    # Connect
     dist.setInput(0, start)
     dist.setInput(1, end)
 
-    #NetworkBox
+    # NetworkBox
     nBox = obj.createNetworkBox()
     nBox.addItem(start)
     nBox.addItem(end)
     nBox.addItem(dist)
 
-    #Move
+    # Move
     if move is True:
         start.moveToGoodPosition()
     end.moveToGoodPosition()

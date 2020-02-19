@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#           LICENSE                 #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +31,7 @@ Web: www.elmar-glaubauf.at
 import soptoolutils
 import hou
 
+
 def run(kwargs):
     selNodes = hou.selectedNodes()
     valid = True
@@ -41,10 +42,10 @@ def run(kwargs):
             valid = False
     if valid:
         mrg = soptoolutils.genericTool(kwargs, 'merge')
-        
+
         for x, node in enumerate(selNodes):
             mrg.setNextInput(node)
-        
+
         mrg.setDisplayFlag(True)
         mrg.setRenderFlag(True)
     else:
