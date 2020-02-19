@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,39 +22,26 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script searches FileNodes for Strings an replaces them
+This script hides all unselected nodes.
 
-TODO: UI
-
-Twitter: @eglaubauf 
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
 import hou
 
+
 def run():
-  obj = hou.selectedNodes()
 
-  search_A = 'F:/Dropbox/FH/DA/MaPro/020_prod/01_asset/sc02/Floor/geo/'
-
-  newString_A = 'opdef:/Object/MAPRO_Landscape_V3_?'
-
-  visited = []
-  for n in obj:
-          if n not in visited:
-            for inner in n.children():
-              if inner.type().name() == "file":
-                  s = inner.parm('file').evalAsString()
-                  if s.find(search_A) != -1:
-                      s = s[s.index("180127"):]
-                      s = newString_A + s
-                  #if s.find(search_B) != -1:
-                  #   s = s[s.index("#"):]
-                    #  s = newString_B + s
-                  inner.parm('file').set(s)
-                      
-                  #if inner.isGenericFlagSet(hou.nodeFlag.Lock):
-                  #   inner.setGenericFlag(hou.nodeFlag.Lock, False)
-              
-            visited.append(n)
-  print "Done"
+    # Get Selection
+    obj = hou.selectedNodes()
+    # Toggle Selected
+    visited = []
+    for n in obj:
+        if n in hou.selectedNodes():
+            if n not in visited:
+                if n.isGenericFlagSet(hou.nodeFlag.Visible):
+                    n.setGenericFlag(hou.nodeFlag.Visible, False)
+                else:
+                    n.setGenericFlag(hou.nodeFlag.Visible, True)
+                visited.append(n)

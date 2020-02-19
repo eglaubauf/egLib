@@ -1,7 +1,8 @@
-#LICENSE                            #
+#####################################
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,29 +22,25 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script will create a Redshift ROP ready for IPR View in Viewport
-
-Feel free to comment/edit/contact me for further development.
-Currently only tested on Windows
+This script hides all unselected nodes.
 
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-#Set Context
-out = hou.node("/out")
-
-mainRop = out.createNode('Redshift_ROP')
-iprRop = out.createNode('Redshift_IPR')
-
-#Link ROPs
-iprRop.parm('linked_rop').set(mainRop.path())
+import hou
 
 
-nBox = out.createNetworkBox()
-nBox.addItem(iprRop)
-nBox.addItem(mainRop)
+def run():
 
-#MakeBeauty
-iprRop.moveToGoodPosition()
-mainRop.moveToGoodPosition()
+    # Get Selection
+    nodes = hou.selectedNodes()
+    all_nodes = hou.node("/obj").allSubChildren()
+
+    # Hide all
+    for n in all_nodes:
+        n.setGenericFlag(hou.nodeFlag.Visible, False)
+
+    # Unhide Selection
+    for n in nodes:
+        n.setGenericFlag(hou.nodeFlag.Visible, True)

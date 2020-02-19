@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -22,45 +22,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-This script creates a black Null Node and prompts for a name
+This script hides all unselected nodes.
 
-Twitter: @eglaubauf 
+Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
-import objecttoolutils
-import soptoolutils
-import re
-
-#Get Selected Node
-selNodes = hou.selectedNodes()
-
-#Create NULL
-kwargs['bbox'] = hou.BoundingBox(-0.5, -0.5, -0.5, 0.5, 0.5, 0.5)
-mrg = objecttoolutils.genericTool(kwargs, 'null')
-
-curNode = kwargs["pane"].currentNode()
-
-#Make InputField
-name = hou.ui.readInput("Call me Names", title="Name")[1]
-
-#Remove Special Chars and replace them with "_"
-for k in name.split("\n"):
-    name = re.sub(r"[^a-zA-Z0-9]+", ' ', k)
-name = name.upper()
-name = name.replace(" ", "_")
+import hou
 
 
+def run():
 
-#Connect Node to Predecessor
-if not kwargs['shiftclick']:
-    for x, node in enumerate(selNodes):
-        mrg.setNextInput(node)
+    # Get Selection
+    all_nodes = hou.node("/obj").allSubChildren()
 
-#SetInterface
-curNode.setName(name, True)
-curNode.setColor(hou.Color((0,0,0)))
-
-curNode.setDisplayFlag(True)
-curNode.setRenderFlag(True)
+    # Hide all
+    for n in all_nodes:
+        n.setGenericFlag(hou.nodeFlag.Visible, True)

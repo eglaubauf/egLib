@@ -1,11 +1,8 @@
 # egLib
 
-A collection of scripts for SideFx Houdini - free for all purposes - no selling/reselling
+A collection of scripts for SideFx Houdini
 
-### Features:
-
-#### Provided Scripts
-This library provides a set of Scripts:
+## Provided Scripts
 
 - autofocus.py - does as it says
 - connectPoints.py - connects polyPoints
@@ -26,7 +23,7 @@ This library provides a set of Scripts:
 - trajectory.py - create a visible trajectory for the selected object (OBJ) - needs Qlib installed
 - align.py  - matches transform of 2 nodes in OBJ
 
-#### Provided HDAs
+## Provided HDAs
 
 - HexGrid - Creates a Hexagonal Grid
 - PolyCapFix - Fixes Holes
@@ -40,7 +37,7 @@ This library provides a set of Scripts:
 - EdgeDisplacement.hdalc - EdgeDisplacement (PolyEdges)
 - LineGlow.hdalc - Shader
 - MacBethMantra.hdalc - a MacBethChart for Mantra
-- MacBethMantra.hdalc - a MacBethChart for Redshift
+- MacBethRedshift.hdalc - a MacBethChart for Redshift
 - MoGraph_Shader - MoGraphStuff as known from other tools
 - MoGraph_Step - MoGraphStuff as known from other tools
 - MoGraph_Target - MoGraphStuff as known from other tools
@@ -49,40 +46,26 @@ This library provides a set of Scripts:
 - Mograph_Random.hda - MoGraphStuff as known from other tools
 - AutoUV_LowToHigh.hdalc -  AutoUVs the LowRes Object and transfers UVs from Low to HighPoly - (SideFx)GameDev Logic inside
 
+## additional Infos
 
-### additional Infos
-
-- Toolbar provided 
-- Icons may follow
-- Tested on 17.5.360 
+- Toolbar provided
+- The Redshift-Functionalities have been removed and will be moved to a separate Repository
 - If you find any bugs, have suggestions or anything else please contact me via Twitter or per Mail
-- please check out my other Repos as well - they might be handy to you
 
+## Installation
 
-### Installation:
+Install via Houdini-Packages Workflow:
+    - Copy to provided egLib.json File to your houdini18.0 directory
+    - Configure the path for $EGLIB within the file to the location of the downloaded directory
+    - enjoy
 
-Append egLib to Houdini Python path or add to 123.py or 456.py
+## Notes
 
-```
-import sys
-sys.path.append("<PathToLib>\scripts")
-```
+All of the scripts are free of charge for free use, commercial or non commercial whatsoever.  Individual Licenses are added to each file as some of these are based on work done by other devs and shall be included in branches, adaptions of this scripts. Anyone is allowed to modify, develop, change the files for his/her/their purpose.
 
-For enabling the HDAs your Houdini.env needs to be extended (add this line to your houdini.env):
+## Contact/Issues/Features/Questions
 
-```
-HOUDINI_OTLSCAN_PATH=$HOUDINI_OTLSCAN_PATH;<PathToLib>\otls;&
-```
+If you find any bugs, have suggestions or anything else please open an issue. For any questions and/or improvement suggestions feel free contact me via twitter or mail.
 
-### Notes:
-
-All of the scripts are free of charge for free use, commercial or non commercial whatsoever.  Individual Licenses are added to each file as some of these are based on work done by other devs and shall be included in branches, adaptions of this scripts. Anyone is allowed to modify, develop, change the files for his/her purpose.
-
-The Scripts in the scripts Folder shall be added as tools to a custom Toolbar. Linking them with some keyboard shortcuts is recommended.
-
-
-### Contact/Issues/Features/Questions
-
-If you find any bugs, have suggestions or anything else please contact me via Twitter or per Mail. Please check out my other Repos as well, they might be handy to you. For any questions and/or improvement suggestions just contact me via twitter or mail.<br>
-Twitter: @eglaubauf <br>
-Web: www.elmar-glaubauf.at
+Twitter: @eglaubauf  
+web: www.elmar-glaubauf.at
