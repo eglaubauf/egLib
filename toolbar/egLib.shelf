@@ -4,13 +4,13 @@
  It should not be hand-edited when it is being used by the application.
  Note, that two definitions of the same element are not allowed in
  a single file. -->
+
   <toolshelf name="egLib" label="egLib">
     <memberTool name="OUT"/>
     <memberTool name="IN"/>
     <memberTool name="Reset Transforms"/>
-    <memberTool name="Align"/>
+    <memberTool name="Match Transform"/>
     <memberTool name="MakeQCam"/>
-    <memberTool name="Connect Points"/>
     <memberTool name="PlanarX"/>
     <memberTool name="PlanarY"/>
     <memberTool name="PlanarZ"/>
@@ -88,13 +88,6 @@ reload(eg_connectPoints)
 eg_connectPoints.run()]]></script>
   </tool>
 
-  <tool name="Align" label="Align" icon="$EGICONS/align-bottom-100.png">
-    <helpText><![CDATA[Frist Selected is the Goal - Second selected will be moved]]></helpText>
-    <script scriptType="python"><![CDATA[import eg_align
-reload(eg_align)
-eg_align.run()]]></script>
-  </tool>
-
   <tool name="Reset Transforms" label="ResetTrans" icon="$EGICONS/reset_trans.png">
     <script scriptType="python"><![CDATA[import eg_resetTrans
 reload(eg_resetTrans)
@@ -133,5 +126,12 @@ eg_replaceString.run()]]></script>
     <script scriptType="python"><![CDATA[import eg_multiImporter
 reload(eg_multiImporter)
 eg_multiImporter.run()]]></script>
+  </tool>
+
+  <tool name="Match Transform" label="Match Transform" icon="$EGICONS/align-bottom-100.png">
+    <helpText><![CDATA[Frist Selected is the Goal - Second selected will be moved]]></helpText>
+    <script scriptType="python"><![CDATA[import eg_align
+reload(eg_align)
+eg_align.run()]]></script>
   </tool>
 </shelfDocument>
