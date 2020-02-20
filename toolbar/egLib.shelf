@@ -22,6 +22,7 @@
     <memberTool name="Autofocus"/>
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
+    <memberTool name="Merge"/>
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
@@ -133,5 +134,11 @@ eg_multiImporter.run()]]></script>
     <script scriptType="python"><![CDATA[import eg_align
 reload(eg_align)
 eg_align.run()]]></script>
+  </tool>
+
+  <tool name="Merge" label="Merge" icon="$EGICONS/merge.png">
+    <script scriptType="python"><![CDATA[import eg_merge
+reload(eg_merge)
+eg_merge.run(kwargs)]]></script>
   </tool>
 </shelfDocument>
