@@ -1,5 +1,5 @@
 #####################################
-#     LICENSE                       #
+#              LICENSE              #
 #####################################
 #
 # Copyright (C) 2020  Elmar Glaubauf
@@ -41,6 +41,15 @@ def run():
     # Set Context
     obj = hou.node("/obj")
 
+    ##########################
+    # Frustum
+    ##########################
+    try:
+        dist = obj.createNode("qLib::distance_ql")
+    except:
+        hou.ui.displayMessage("Please install qlib first")
+        return
+
     start = None
     end = None
     nodes = hou.selectedNodes()
@@ -64,7 +73,7 @@ def run():
         end = nodes[1]
 
     # Create Dist Node
-    dist = obj.createNode("qLib::distance_ql")
+    # dist = obj.createNode("qLib::distance_ql")
     # Connect
     dist.setInput(0, start)
     dist.setInput(1, end)
