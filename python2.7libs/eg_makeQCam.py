@@ -1,5 +1,5 @@
 #####################################
-# LICENSE                          #
+#              LICENSE              #
 #####################################
 #
 # Copyright (C) 2020  Elmar Glaubauf
@@ -38,8 +38,19 @@ import hou
 
 
 def run():
+
     # Set Context
     obj = hou.node("/obj")
+
+
+    ##########################
+    # Frustum
+    ##########################
+    try:
+        frust = obj.createNode("qLib::camera_frustrum_ql")
+    except:
+        hou.ui.displayMessage("Please install qlib first")
+        return
 
     ##########################
     # Cam
@@ -49,10 +60,6 @@ def run():
     myCam.parm('resy').set('1080')
     myCam.parm('near').set('0.01')
 
-    ##########################
-    # Frustum
-    ##########################
-    frust = obj.createNode("qLib::camera_frustrum_ql")
 
     # Connect Camera
     frust.parm('camera').set(myCam.path())
