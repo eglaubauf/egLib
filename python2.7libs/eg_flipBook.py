@@ -1,5 +1,5 @@
 #####################################
-#  LICENSE                          #
+#              LICENSE              #
 #####################################
 #
 # Copyright (C) 2020  Elmar Glaubauf
@@ -25,9 +25,6 @@
 This script creates a Flipbook into $HIP/flipbook/camname. Camera Resolution is used.
 If Cam is within a shotql node the name of shotql is used.
 
-Feel free to comment/edit/contact me for further development.
-Currently only tested on Windows
-
 Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
@@ -44,6 +41,7 @@ def run():
 
     # Settings
     s = sc.flipbookSettings()
+    s.stash()
 
     # Set FrameRange
     range = (hou.playbar.playbackRange())
@@ -56,21 +54,27 @@ def run():
         s.resolution(res)
         s.cropOutMaskOverlay(True)
 
-        # Set Output Name and Path
-        node = cam.parent().parent()
-        if node.type().name() != "qLib::shot_ql::1":
-            path = cam.name()
+        disk = hou.ui.displayMessage("Render to Disk?", buttons=('No','Yes'))
+
+        if disk == 1:
+            # Set Output Name and Path
+            node = cam.parent().parent()
+            if node.type().name() != "qLib::shot_ql::1":
+                path = cam.name()
+            else:
+                path = cam.parent().parent().name()
+
+            dir = hou.getenv('HIP') + '/' + 'flipbook/' + path
+
+            if not os.path.isdir(dir):
+                os.makedirs(dir)
+            path = '$HIP/flipbook/' + path + '/' + path + '_$F4.jpg'
+
+            s.output(path)
+            sc.flipbook(viewport=view, settings=s, open_dialog=False)
         else:
-            path = cam.parent().parent().name()
+            s.output("")
+            sc.flipbook(viewport=view, settings=s, open_dialog=False)
 
-        dir = hou.getenv('HIP') + '/' + 'flipbook/' + path
-
-        if not os.path.isdir(dir):
-            os.makedirs(dir)
-        path = '$HIP/flipbook/' + path + '/' + path + '_$F4.jpg'
-
-        s.output(path)
-
-        sc.flipbook(viewport=view, settings=s, open_dialog=False)
     else:
         hou.ui.displayMessage('Please create a Camera')
