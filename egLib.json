@@ -1,7 +1,7 @@
 {
     "env": [
         {
-            "EGLIB": "D:/Git/egLib"
+            "EGLIB": "C:/Git/egLib"
 
         },
         {
@@ -10,7 +10,7 @@
         {
             "EGICONS": "$EGLIB/icons"
         }
-
-    ]
+    ],
+    "path": "$EGLIB"
 
 }
