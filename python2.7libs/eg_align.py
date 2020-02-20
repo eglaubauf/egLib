@@ -40,7 +40,7 @@ def run():
 
     if len(selNodes) < 2:
         msg = ["Okay"]
-        hou.ui.displayMessage("Please Select exactly 2 Nodes", msg, severity=hou.severityType.Message)
+        hou.ui.displayMessage("Please Select at least 2 Nodes", msg, severity=hou.severityType.Message)
         return
     else:
         # Possible Choices
