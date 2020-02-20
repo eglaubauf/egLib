@@ -1,8 +1,8 @@
 #####################################
-#LICENSE                            #
+#              LICENSE              #
 #####################################
 #
-# Copyright (C) 2017  Elmar Glaubauf
+# Copyright (C) 2020  Elmar Glaubauf
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -31,10 +31,11 @@ Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
 import toolutils
+
+
 def run():
-    #Get Points in Viewport
+    # Get Points in Viewport
     gs = toolutils.sceneViewer().selectGeometry()
     sS = gs.selectionStrings()
     s = gs.selections()
@@ -43,59 +44,59 @@ def run():
         if gs.nodes():
             n = gs.nodes()[0]
             geo = n.geometry()
-            points =  s[0].points(geo)
+            points = s[0].points(geo)
             selNode = n
 
-            ####NETWORKPANE STUFF
-            #Get Selected Node in Network Pane
-            #selNode = hou.selectedNodes()
+            # NETWORKPANE STUFF
+            # Get Selected Node in Network Pane
+            # selNode = hou.selectedNodes()
 
             if selNode:
-                #Create Wrangle Node
+                # Create Wrangle Node
                 edit = selNode.parent().createNode("edit")
-                #Connect
-                edit.setInput(0, selNode,0)
-                #Set Group
+                # Connect
+                edit.setInput(0, selNode, 0)
+                # Set Group
                 edit.parm("group").set(sS[0])
 
                 #############################
-                #Calc Pos
+                # Calc Pos
                 #############################
                 pivX = 0
                 pivY = 0
                 pivZ = 0
                 count = 0
-                #Get Average PosX
+                # Get Average PosX
                 for point in points:
                     pos = point.position()
                     pivX += pos.x()
                     pivY += pos.y()
                     pivZ += pos.z()
                     count += 1
-                #Calc
+                # Calc
                 pivX = pivX / count
                 pivY = pivY / count
                 pivZ = pivZ / count
                 
-                #CalcRotation of Parent
+                # CalcRotation of Parent
                 rotX = -selNode.parent().parm("rx").eval()
                 rotY = -selNode.parent().parm("ry").eval()
                 rotZ = -selNode.parent().parm("rz").eval()
-                #Counter Rotation of Parent 
+                # Counter Rotation of Parent 
                 edit.parm("rx").set(rotX)
                 edit.parm("ry").set(rotY)
                 edit.parm("rz").set(rotZ)
 
-                #SetParms
+                # SetParms
                 edit.parm("px").set(pivX)
                 edit.parm("py").set(pivY)
                 edit.parm("pz").set(pivZ)
 
-                #Set Pos
+                # Set Pos
                 edit.parm("sx").set("0")
 
-                #Arrange Stuff
+                # Arrange Stuff
                 edit.moveToGoodPosition()
                 edit.setDisplayFlag(True)
-                edit.setSelected(1,1,0)
+                edit.setSelected(1, 1, 0)
                 edit.setName("MakePlanarX", True)

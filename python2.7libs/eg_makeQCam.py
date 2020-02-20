@@ -42,7 +42,6 @@ def run():
     # Set Context
     obj = hou.node("/obj")
 
-
     ##########################
     # Frustum
     ##########################
@@ -59,7 +58,6 @@ def run():
     myCam.parm('resx').set('1920')
     myCam.parm('resy').set('1080')
     myCam.parm('near').set('0.01')
-
 
     # Connect Camera
     frust.parm('camera').set(myCam.path())

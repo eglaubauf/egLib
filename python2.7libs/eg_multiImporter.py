@@ -30,7 +30,6 @@ Twitter: @eglaubauf
 Web: www.elmar-glaubauf.at
 """
 
-
 import hou
 obj = hou.node("/obj")
 
@@ -57,8 +56,7 @@ def run():
         currNode = obj.createNode("geo", node_name=name)
         currNode.moveToGoodPosition()
         c = currNode.createNode("file", node_name="file")
-        # c = currNode.children()
-
+        
         c.parm('file').set(s)
         c.setName(name, True)
         # TO DO - Insert Menu Option her
@@ -68,7 +66,6 @@ def run():
                 c.parm('viewportlod').set(0)
 
         null = currNode.createNode("null")
-
         null.setNextInput(c)
 
         null.setName("OUT", True)
