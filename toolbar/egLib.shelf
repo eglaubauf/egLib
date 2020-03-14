@@ -5,17 +5,12 @@
  Note, that two definitions of the same element are not allowed in
  a single file. -->
 
-  <shelfSet name="shelf_set_1" label="Create and Refine">
-    <memberToolshelf name="egLib"/>
-  </shelfSet>
-
   <toolshelf name="egLib" label="egLib">
     <memberTool name="OUT"/>
     <memberTool name="IN"/>
     <memberTool name="Reset Transforms"/>
-    <memberTool name="Align"/>
+    <memberTool name="Match Transform"/>
     <memberTool name="MakeQCam"/>
-    <memberTool name="Connect Points"/>
     <memberTool name="PlanarX"/>
     <memberTool name="PlanarY"/>
     <memberTool name="PlanarZ"/>
@@ -27,33 +22,34 @@
     <memberTool name="Autofocus"/>
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
+    <memberTool name="Merge"/>
   </toolshelf>
 
-  <tool name="incrSave" label="incrSave" icon="$ICONS/save.png">
+  <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
     <script scriptType="python"><![CDATA[import eg_incrSave
 reload(eg_incrSave)
 eg_incrSave.run()]]></script>
   </tool>
 
-  <tool name="Autofocus" label="Autofocus" icon="$ICONS/camera.png">
+  <tool name="Autofocus" label="Autofocus" icon="$EGICONS/camera-enhance-100.png">
     <script scriptType="python"><![CDATA[import eg_autofocus
 reload(eg_autofocus)
 eg_autofocus.run()]]></script>
   </tool>
 
-  <tool name="Hide Selected" label="Hide" icon="/media/elmar/Media/Dropbox/3D/Houdini/icons/hide.png">
+  <tool name="Hide Selected" label="Hide" icon="$EGICONS/hide-96.png">
     <script scriptType="python"><![CDATA[import eg_hide
 reload(eg_hide)
 eg_hide.run()]]></script>
   </tool>
 
-  <tool name="Measure" label="Measure" icon="$ICONS/measure.png">
+  <tool name="Measure" label="Measure" icon="$EGICONS/sewing-tape-measure-90.png">
     <script scriptType="python"><![CDATA[import eg_measure
 reload(eg_measure)
 eg_measure.run()]]></script>
   </tool>
 
-  <tool name="IN" label="IN" icon="$ICONS/IN.png">
+  <tool name="IN" label="IN" icon="$EGICONS/IN.png">
     <helpText><![CDATA[This script creates a green Null Node appended to the current selection and prompts for a name]]></helpText>
     <toolMenuContext name="network">
       <contextNetType>SOP</contextNetType>
@@ -63,50 +59,43 @@ reload(eg_in)
 eg_in.run(kwargs)]]></script>
   </tool>
 
-  <tool name="Flipbook" label="Flipbook" icon="$ICONS/flipbook.png">
+  <tool name="Flipbook" label="Flipbook" icon="$EGICONS/flipbook.png">
     <script scriptType="python"><![CDATA[import eg_flipBook
 reload(eg_flipBook)
 eg_flipBook.run()]]></script>
   </tool>
 
-  <tool name="PlanarZ" label="PlanarZ" icon="$ICONS/Z.png">
+  <tool name="PlanarZ" label="PlanarZ" icon="$EGICONS/Z.png">
     <script scriptType="python"><![CDATA[import eg_makePlanarZ
 reload(eg_makePlanarZ)
 eg_makePlanarZ.run()]]></script>
   </tool>
 
-  <tool name="PlanarY" label="PlanarY" icon="$ICONS/Y.png">
+  <tool name="PlanarY" label="PlanarY" icon="$EGICONS/Y.png">
     <script scriptType="python"><![CDATA[import eg_makePlanarY
 reload(eg_makePlanarY)
 eg_makePlanarY.run()]]></script>
   </tool>
 
-  <tool name="PlanarX" label="PlanarX" icon="$ICONS/X.png">
+  <tool name="PlanarX" label="PlanarX" icon="$EGICONS/X.png">
     <script scriptType="python"><![CDATA[import eg_makePlanarX
 reload(eg_makePlanarX)
 eg_makePlanarX.run()]]></script>
   </tool>
 
-  <tool name="Connect Points" label="Connect Points" icon="$ICONS/connect.png">
+  <tool name="Connect Points" label="Connect Points" icon="$EGICONS/connect-100.png">
     <script scriptType="python"><![CDATA[import eg_connectPoints
 reload(eg_connectPoints)
 eg_connectPoints.run()]]></script>
   </tool>
 
-  <tool name="Align" label="Align" icon="$ICONS/align_center.png">
-    <helpText><![CDATA[Frist Selected is the Goal - Second selected will be moved]]></helpText>
-    <script scriptType="python"><![CDATA[import eg_align
-reload(eg_align)
-eg_align.run()]]></script>
-  </tool>
-
-  <tool name="Reset Transforms" label="ResetTrans" icon="$ICONS/reset_trans.png">
+  <tool name="Reset Transforms" label="ResetTrans" icon="$EGICONS/reset_trans.png">
     <script scriptType="python"><![CDATA[import eg_resetTrans
 reload(eg_resetTrans)
 eg_resetTrans.run()]]></script>
   </tool>
 
-  <tool name="OUT" label="OUT" icon="$ICONS/OUT.png">
+  <tool name="OUT" label="OUT" icon="$EGICONS/IN.png">
     <helpText><![CDATA[This script creates a black Null Node appended to the current selection and prompts for a name]]></helpText>
     <toolMenuContext name="network">
       <contextNetType>SOP</contextNetType>
@@ -116,27 +105,40 @@ reload(eg_out)
 eg_out.run(kwargs)]]></script>
   </tool>
 
-  <tool name="TrajectoryQ" label="TrajectoryQ" icon="$ICONS/path.png">
+  <tool name="TrajectoryQ" label="TrajectoryQ" icon="$EGICONS/path-100.png">
     <script scriptType="python"><![CDATA[import eg_trajectory
 reload(eg_trajectory)
 eg_trajectory.run()]]></script>
   </tool>
 
-  <tool name="MakeQCam" label="MakeQCam" icon="$ICONS/camera.png">
+  <tool name="MakeQCam" label="MakeQCam" icon="$EGICONS/camera-90.png">
     <script scriptType="python"><![CDATA[import eg_makeQCam
 reload(eg_makeQCam)
 eg_makeQCam.run()]]></script>
   </tool>
 
-  <tool name="ReplaceString1" label="ReplaceString" icon="$ICONS/replace_text.png">
+  <tool name="ReplaceString1" label="ReplaceString" icon="$EGICONS/rich-text-converter-100.png">
     <script scriptType="python"><![CDATA[import eg_replaceString
 reload(eg_replaceString)
 eg_replaceString.run()]]></script>
   </tool>
 
-  <tool name="multiImporter" label="multiImporter" icon="PLASMA_App">
+  <tool name="multiImporter" label="multiImporter" icon="$EGICONS/import-file-96.png">
     <script scriptType="python"><![CDATA[import eg_multiImporter
 reload(eg_multiImporter)
 eg_multiImporter.run()]]></script>
+  </tool>
+
+  <tool name="Match Transform" label="Match Transform" icon="$EGICONS/align-bottom-100.png">
+    <helpText><![CDATA[Frist Selected is the Goal - Second selected will be moved]]></helpText>
+    <script scriptType="python"><![CDATA[import eg_align
+reload(eg_align)
+eg_align.run()]]></script>
+  </tool>
+
+  <tool name="Merge" label="Merge" icon="$EGICONS/merge.png">
+    <script scriptType="python"><![CDATA[import eg_merge
+reload(eg_merge)
+eg_merge.run(kwargs)]]></script>
   </tool>
 </shelfDocument>
