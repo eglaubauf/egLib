@@ -28,7 +28,8 @@
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
     <script scriptType="python"><![CDATA[import eg_incrSave
 reload(eg_incrSave)
-eg_incrSave.run()]]></script>
+i = eg_incrSave.incrSave()
+i.run()]]></script>
   </tool>
 
   <tool name="Autofocus" label="Autofocus" icon="$EGICONS/camera-enhance-100.png">
