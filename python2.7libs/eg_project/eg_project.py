@@ -1,6 +1,9 @@
 import hou
-import eg_incrSave
+import eg_save
 import datetime
+import os
+
+reload(eg_save)
 
 class project:
 
@@ -73,9 +76,17 @@ class project:
         hou.putenv('JOB', path)
         kwargs['node'].parm('job').set(path)
 
+    def save(self, kwargs):
+
+        s = eg_save.Save()
+        path = s.get_path()
+
+        filename = hou.getenv('P_DATE') + '_' + hou.getenv('P_NAME') + '_' + hou.getenv('P_USER') + '_' + hou.getenv('P_VERSION') + s.getLicenseType()
+        s.save(path + filename)
+
     def incr_save(self, kwargs):
-        iSave = eg_incrSave.incrSave()
-        iSave.run()
+        iSave = eg_save.Save()
+        iSave.incrSave()
 
         version = iSave.getCurrentVersion()
         kwargs['node'].parm('p_version').set(version)

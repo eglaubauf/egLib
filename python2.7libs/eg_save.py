@@ -39,7 +39,7 @@ import os
 import re
 import datetime
 
-class incrSave:
+class Save:
 
     def __init__(self):
 
@@ -48,6 +48,8 @@ class incrSave:
         self.oldDir = "versions"
         self.currentVersion = None
 
+        self.get_data_from_file()
+
     def save(self, filename):
         if os.path.isfile(filename):
             overwrite = hou.ui.displayConfirmation('The file "{}" already exists. Do you want to overwrite it?' .format(filename))
@@ -55,7 +57,6 @@ class incrSave:
                 return
         # Save
         hou.hipFile.save(filename)
-        return()
 
     def getLicenseType(self):
         if hou.licenseCategory() == hou.licenseCategoryType.Indie:
@@ -91,7 +92,7 @@ class incrSave:
                 basename = basename[:-length]
             ext = self.getLicenseType()
             basename += self.new_suffix_format + ext
-        return basename
+        self.basename = basename
 
     def addDate(self, basename):
         today = datetime.date.today().strftime("%y%m%d")
@@ -110,7 +111,7 @@ class incrSave:
         else:
             # add current date in front
             basename = today + "_" + basename
-        return basename
+        self.basename = basename
 
     def moveOldFileToDir(self, oldPathname, oldBasename):
         oldpath = oldPathname + oldBasename
@@ -125,24 +126,32 @@ class incrSave:
             os.rename(oldpath, newpath)
         return
 
-    def run(self):
-        # Get Data from Current File
+    def get_data_from_file(self):
         hip = hou.hipFile
-        filename = hip.path()
-        basename = hip.basename()
-        pathname = re.sub(basename + "$", '', filename)
+        self.filename = hip.path()
+        self.basename = hip.basename()
+        self.pathname = re.sub(self.basename + "$", '', self.filename)
 
         # Save Old name for Later
-        oldPath = pathname
-        oldBasename = basename
+        self.oldPath = self.pathname
+        self.oldBasename = self.basename
+
+    def get_path(self):
+        return self.pathname
+
+    def incrSave(self):
+        # Get Data from Current File
+        self.get_data_from_file()
+
         # Correct Date if necessary
-        basename = self.addDate(basename)
+        self.addDate(self.basename)
         # Increase Version
-        basename = self.increaseVersionNum(basename)
+        self.increaseVersionNum(self.basename)
+
         # Concat again
-        filename = pathname + basename
+        self.filename = self.pathname + self.basename
+
         # Save
-        self.save(filename)
+        self.save(self.filename)
         if self.moveOldFiles is True:
-            self.moveOldFileToDir(oldPath, oldBasename)
-        return
+            self.moveOldFileToDir(self.oldPath, self.oldBasename)
