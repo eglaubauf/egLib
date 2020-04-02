@@ -19,7 +19,7 @@ A collection of scripts for SideFx Houdini
 - merge - merge selected with merge node (SOP) - Shortcut highly recommended (M works fine)
 - multiImporter - import multiple files (.bgeo, .abc, .fbx,...) into OBJ - Creates a OBJ_node with names for each selected file
 - out - Black Null with handy rename panel provided; appends to selected node (SOP); shortcut recommended
-- replaceString - search ALL nodes in the scene for all string-parms and replace a string if found
+- replaceString - search ALL nodes in the scene for referenced Files - Provides a list view - to choose which to replace
 - resetTrans - reset Transforms to zero (Components selectable) - OBJ
 - showAll - unhides all Nodes in the secene
 - trajectory - create a visible trajectory for the selected object (OBJ) - needs Qlib installed
@@ -33,6 +33,8 @@ A collection of scripts for SideFx Houdini
 - DeleteOutsidePieces.hdalc - delete pieces which are not on the inside
 - DigitalGrowth2D.hdalc - Line-Growth Solver
 - EdgeDisplacement.hdalc - Displaces Edges
+- TOPs Flipbook - Flipbook Generator based on TOPS - als renders a video (with ffmpeg) to $HIP/videos
+- FileCache - enables writing of filecaches, based on Enviroment Variables set by the Project Node, also has the ability to move Caches from within Houdini do a different directory
 - HexGrid - Creates a Flat Hexagonal Grid
 - Mograph_Displace.hda - MoGraphStuff as known from other tools
 - Mograph_Plain.hda - MoGraphStuff as known from other tools
@@ -41,6 +43,7 @@ A collection of scripts for SideFx Houdini
 - MoGraph_Step - MoGraphStuff as known from other tools
 - MoGraph_Target - MoGraphStuff as known from other tools
 - PolyCapFix - Fixes Holes
+- Project - sets a few environment Variables which are handy if you have a bigger Project
 - SmoothGeo - Smoothing of Geometry in a few different ways
 - VolumeDisplacement.hdalc - Does VolumeDisplacement (in SOP/VOPs on VDBs)
 - VoronoiTransform.hdalc - Breaks things and Transforms Pieces
