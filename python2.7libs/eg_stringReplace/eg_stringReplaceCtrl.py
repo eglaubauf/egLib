@@ -111,12 +111,11 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
 
     def init_table(self):
         '''Create the Table Header'''
-        count = 4
-        column_names = ['Node', 'Parm', 'Path', 'NewPath']
+        count = 5
+        column_names = ['Node', 'Parm', 'Path', 'NewPath', 'id']
 
         self.tableWidget.setColumnCount(count)
         self.tableWidget.setHorizontalHeaderLabels(column_names)
-
 
     def get_dict_entry(self, row, num):
         if num == 0:
@@ -127,6 +126,8 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
             return row.get_data()['path']
         if num == 3:
             return row.get_data()['new_path']
+        if num == 4:
+            return row.get_data()['id']
 
     def update_table(self):
         '''Draw a new Table'''
@@ -140,14 +141,14 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
 
         for row_num, row in enumerate(rows):
             column_num = 0
-            while column_num < 4:
+            while column_num < 5:
                 cell = self.get_dict_entry(row, column_num)
                 if row.get_display():
                     item = QtWidgets.QTableWidgetItem()
                     item.setData(0, cell)
                     self.tableWidget.setItem(row_num, column_num, item)
                 column_num += 1
-
+        self.tableWidget.setColumnHidden(4, True)
         self.tableWidget.resizeColumnsToContents()
 
     def filter_obj(self):
@@ -155,8 +156,6 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
             self.core.show('/obj')
         else:
             self.core.hide('/obj')
-
-        # self.core.set_parms()
         self.update_table()
 
     def filter_mat(self):
@@ -166,8 +165,6 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
         else:
             self.core.hide('/mat')
             self.core.hide('/shop')
-
-        # self.core.set_parms()
         self.update_table()
 
     def filter_rop(self):
@@ -175,8 +172,6 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
             self.core.show('/out')
         else:
             self.core.hide('/out')
-
-        # self.core.set_parms()
         self.update_table()
 
     def filter_cop(self):
@@ -184,27 +179,26 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
             self.core.show('/img')
         else:
             self.core.hide('/img')
-
-        # self.core.set_parms()
         self.update_table()
 
     def get_selection(self):
+        self.tableWidget.setColumnHidden(4, False)
         items = self.tableWidget.selectedItems()
-        selected_rows = []
-        for i in items:
-            selected_rows.append(i.row())
 
+        selected_rows = []
+        for num, i in enumerate(items, 0):
+            if (num % 5) == 4:
+                selected_rows.append(int(i.text()))
         return selected_rows
 
     # Execute Material Creation
     def execute(self):
         sel = self.get_selection()
         if sel:
-            self.core.execute(self.get_selection())
+            self.core.execute(sel)
             self.destroy()
             return
-
         if hou.ui.displayConfirmation('Nothing Selected. Do you want to replace all visible Rows?'):
-            self.core.execute(self.get_selection())
+            self.core.execute(sel)
             self.destroy()
         return

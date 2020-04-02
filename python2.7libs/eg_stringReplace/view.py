@@ -13,7 +13,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_StringReplacer(object):
     def setupUi(self, StringReplacer):
         StringReplacer.setObjectName("StringReplacer")
-        StringReplacer.resize(870, 463)
+        StringReplacer.resize(870, 758)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

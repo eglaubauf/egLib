@@ -24,15 +24,18 @@
 
 import hou
 
+
 class Core():
 
     def __init__(self):
         self.rows = []
         self.hidden = 0
+        self.ids = 0
 
     def clear_rows(self):
         '''Empties all Rows '''
         self.rows = []
+        self.ids = 0
 
     def get_rows(self):
         '''Returns all visible Rows from Rows'''
@@ -52,6 +55,8 @@ class Core():
                 row.set_parm(parm)
                 row.set_path(path)
                 row.set_new_path(path)
+                row.set_id(self.ids)
+                self.ids += 1
                 self.rows.append(row)
 
     def get_row(self, row_num):
@@ -82,9 +87,10 @@ class Core():
                 row.set_new_path(new_path)
 
     def execute(self, selected_rows):
+
         for row in self.rows:
             if selected_rows:
-                if row in selected_rows:
+                if row.get_id() in selected_rows:
                     if row.get_display() is True:
                         row.get_actual_parm().set(row.get_new_parm())
             else:
@@ -103,7 +109,8 @@ class Row:
             'parm': '',
             'node': '',
             'path': '',
-            'new_path': ''
+            'new_path': '',
+            'id': -1
         }
 
     def set_display(self, flag):
@@ -111,6 +118,12 @@ class Row:
 
     def get_display(self):
         return self.display
+
+    def set_id(self, ids):
+        self.data['id'] = ids
+
+    def get_id(self):
+        return self.data['id']
 
     def set_data(self, data):
         self.data = data
