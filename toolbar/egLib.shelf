@@ -119,9 +119,10 @@ eg_makeQCam.run()]]></script>
   </tool>
 
   <tool name="ReplaceString1" label="ReplaceString" icon="$EGICONS/rich-text-converter-100.png">
-    <script scriptType="python"><![CDATA[import eg_replaceString
-reload(eg_replaceString)
-eg_replaceString.run()]]></script>
+    <script scriptType="python"><![CDATA[import eg_stringReplace.eg_stringReplaceCtrl as link
+reload(link)
+link.open()
+]]></script>
   </tool>
 
   <tool name="multiImporter" label="multiImporter" icon="$EGICONS/import-file-96.png">
