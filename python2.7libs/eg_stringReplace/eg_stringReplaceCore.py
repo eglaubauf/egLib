@@ -53,8 +53,8 @@ class Core():
                 row = Row()
                 row.set_node(parm.node())
                 row.set_parm(parm)
-                row.set_path(path)
-                row.set_new_path(path)
+                row.set_path(parm.evalAsString())
+                row.set_new_path(parm.evalAsString())
                 row.set_id(self.ids)
                 self.ids += 1
                 self.rows.append(row)
