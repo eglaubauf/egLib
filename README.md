@@ -19,7 +19,7 @@ A collection of scripts for SideFx Houdini
 - merge - merge selected with merge node (SOP) - Shortcut highly recommended (M works fine)
 - multiImporter - import multiple files (.bgeo, .abc, .fbx,...) into OBJ - Creates a OBJ_node with names for each selected file
 - out - Black Null with handy rename panel provided; appends to selected node (SOP); shortcut recommended
-- replaceString - search ALL nodes in the scene for referenced Files - Provides a list view - to choose which to replace
+- StringReplace - search ALL nodes in the scene for referenced Files - Provides a list view - to choose which to replace
 - resetTrans - reset Transforms to zero (Components selectable) - OBJ
 - showAll - unhides all Nodes in the secene
 - trajectory - create a visible trajectory for the selected object (OBJ) - needs Qlib installed
