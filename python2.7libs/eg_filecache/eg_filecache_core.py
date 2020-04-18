@@ -32,6 +32,29 @@ class filecache:
 
         self.update_file_parm()
 
+
+    def update_version(self, kwargs):
+
+        self.node = kwargs['node']
+        path = self.node.parm('file').unexpandedString()
+
+        self.version = self.node.parm("c_version_val").evalAsInt()
+
+        # Find and Replace Version
+        r = re.compile(r'[v][\d]')
+        pos = None
+        pre = ""
+        post = ""
+
+        for m in r.finditer(path):
+            pos = m.start()
+
+            pre = path[:pos+1]
+            post = path[pos+4:]
+
+        path = pre + str(self.version).rjust(3, '0') + post
+        self.node.parm('file').set(path)
+
     def get_path_options(self, key):
         labels = self.node.parm(key).menuLabels()
 
