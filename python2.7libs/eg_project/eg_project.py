@@ -13,6 +13,11 @@ class project:
     def updateEntry(self, kwargs):
         val = kwargs['parm']
         env_var = (kwargs['parm_name'].upper())
+
+        if kwargs['parm'].name() == 'c_version':
+            val = val.evalAsString().rjust(3, '0')
+            hou.putenv(env_var, val)
+            return
         hou.putenv(env_var, val.evalAsString())
 
     def create(self, kwargs):
