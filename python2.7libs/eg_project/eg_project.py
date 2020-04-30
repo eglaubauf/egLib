@@ -13,6 +13,11 @@ class project:
     def updateEntry(self, kwargs):
         val = kwargs['parm']
         env_var = (kwargs['parm_name'].upper())
+
+        if kwargs['parm'].name() == 'c_version':
+            val = val.evalAsString().rjust(3, '0')
+            hou.putenv(env_var, val)
+            return
         hou.putenv(env_var, val.evalAsString())
 
     def create(self, kwargs):
@@ -81,7 +86,14 @@ class project:
         s = eg_save.Save()
         path = s.get_path()
 
-        filename = hou.getenv('P_DATE') + '_' + hou.getenv('P_NAME') + '_' + hou.getenv('P_USER') + '_' + hou.getenv('P_VERSION') + s.getLicenseType()
+        filename = ''
+        envs = ['P_DATE', 'P_NAME', 'P_USER', 'P_VERSION']
+
+        for env in envs:
+            if hou.getenv(env):
+                filename += hou.getenv(env) + '_'
+
+        filename = filename[:-1] + s.getLicenseType()
         s.save(path + filename)
 
     def incr_save(self, kwargs):
