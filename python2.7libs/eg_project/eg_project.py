@@ -60,7 +60,8 @@ class project:
             # SET VERSION
             kwargs['node'].parm('p_version').set(list[3])
         else:
-            kwargs['node'].parm('p_name').set(basename)
+            p_name = basename.split('_')[1]
+            kwargs['node'].parm('p_name').set(p_name)
             kwargs['node'].parm('p_user').set(hou.getenv('USER'))
             date = str(datetime.date.today()).replace('-','')[2:]
             kwargs['node'].parm('p_date').set(date)
