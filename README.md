@@ -29,7 +29,7 @@ A collection of scripts for SideFx Houdini
 - AtomArray.hdalc - As know from other DCCs
 - AutoUV_LowToHigh.hdalc -  AutoUVs the LowRes Object and transfers UVs from Low to HighPoly - (SideFx)GameDev Logic inside
 - compressvdb.hdalc - save space with vdbs
-- compressvolume.hdalc - save space with volumes
+- compressvolume.hdalc - save space with volumes and VDBs
 - DeleteOutsidePieces.hdalc - delete pieces which are not on the inside
 - DigitalGrowth2D.hdalc - Line-Growth Solver
 - EdgeDisplacement.hdalc - Displaces Edges
@@ -42,9 +42,11 @@ A collection of scripts for SideFx Houdini
 - MoGraph_Shader - MoGraphStuff as known from other tools
 - MoGraph_Step - MoGraphStuff as known from other tools
 - MoGraph_Target - MoGraphStuff as known from other tools
+- Noise to Volume - The pre H18 way
 - PolyCapFix - Fixes Holes
-- Project - sets a few environment Variables which are handy if you have a bigger Project
+- Project - sets a few environment Variables which are handy if you have a bigger Project, provides incremental Saves, 
 - SmoothGeo - Smoothing of Geometry in a few different ways
+- sourcePyro - Source Pyro Nodes packaged up
 - VolumeDisplacement.hdalc - Does VolumeDisplacement (in SOP/VOPs on VDBs)
 - VoronoiTransform.hdalc - Breaks things and Transforms Pieces
 
