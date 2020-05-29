@@ -48,19 +48,23 @@ class project:
         basename = hou.hipFile.basename()
         basename = basename[:basename.rfind(".")]
 
-        list = basename.split('_')
+        base_list = basename.split('_')
 
-        if len(list) == 4:
+        if len(base_list) == 4:
             # Set DATE
-            kwargs['node'].parm('p_date').set(list[0])
+            kwargs['node'].parm('p_date').set(base_list[0])
             # Set NAME
-            kwargs['node'].parm('p_name').set(list[1])
+            kwargs['node'].parm('p_name').set(base_list[1])
             # Set USER
-            kwargs['node'].parm('p_user').set(list[2])
+            kwargs['node'].parm('p_user').set(base_list[2])
             # SET VERSION
-            kwargs['node'].parm('p_version').set(list[3])
+            kwargs['node'].parm('p_version').set(base_list[3])
         else:
-            p_name = basename.split('_')[1]
+            # Check against Filename without Seperator
+            if len(basename.split('_')) > 1:
+                p_name = basename.split('_')[1]
+            else:
+                p_name = ""
             kwargs['node'].parm('p_name').set(p_name)
             kwargs['node'].parm('p_user').set(hou.getenv('USER'))
             date = str(datetime.date.today()).replace('-','')[2:]
