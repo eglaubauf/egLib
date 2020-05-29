@@ -88,7 +88,7 @@ class project:
 
     def save(self, kwargs):
 
-        s = eg_save.Save()
+        s = eg_save.Save(kwargs['node'].parm('p_version'))
         path = s.get_path()
 
         filename = ''
