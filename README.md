@@ -44,7 +44,7 @@ A collection of scripts for SideFx Houdini
 - MoGraph_Target - MoGraphStuff as known from other tools
 - Noise to Volume - The pre H18 way
 - PolyCapFix - Fixes Holes
-- Project - sets a few environment Variables which are handy if you have a bigger Project, provides incremental Saves, 
+- Project - sets a few environment Variables which are handy if you have a bigger Project, provides incremental Saves,
 - SmoothGeo - Smoothing of Geometry in a few different ways
 - sourcePyro - Source Pyro Nodes packaged up
 - VolumeDisplacement.hdalc - Does VolumeDisplacement (in SOP/VOPs on VDBs)
@@ -55,8 +55,13 @@ A collection of scripts for SideFx Houdini
 - easy Usage a provided shelf
 - provides error messages if required Libraries are missing
 - easy Install via Packages Workflow - see more below
+<<<<<<< HEAD
 - Tested on Houdini 18.0.416
 - Tested on Windows 10 and Linux (Ubuntu 20.04)
+=======
+- Tested on Houdini 18.0.460
+- Tested on Windows 10
+>>>>>>> dev
 - Open Source - Feel free to branch or fork
 
 ## Installation:

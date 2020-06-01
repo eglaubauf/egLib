@@ -41,7 +41,7 @@ import datetime
 
 class Save:
 
-    def __init__(self):
+    def __init__(self, version=None):
 
         self.new_suffix_format = '_001'
         self.moveOldFiles = True
