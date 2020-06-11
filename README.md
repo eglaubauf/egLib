@@ -55,14 +55,8 @@ A collection of scripts for SideFx Houdini
 - easy Usage a provided shelf
 - provides error messages if required Libraries are missing
 - easy Install via Packages Workflow - see more below
-<<<<<<< HEAD
-- Tested on Houdini 18.0.416
-- Tested on Windows 10 and Linux (Ubuntu 20.04)
-=======
 - Tested on Houdini 18.0.460
 - Tested on Windows 10
->>>>>>> dev
-- Open Source - Feel free to branch or fork
 
 ## Installation:
 
