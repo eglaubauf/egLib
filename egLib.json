@@ -1,16 +1,26 @@
 {
     "env": [
         {
-            "EGLIB": "C:/Git/egLib"
+            "EGLIB": "C:/Users/Elmar/Documents/Git/egLib"
 
         },
         {
-            "HOUDINI_OTLSCAN_PATH": "$EGLIB/otls"
+            "HOUDINI_OTLSCAN_PATH": [
+                "$EGLIB/otls",
+                {
+                    "method": "append"
+                }
+            ]
         },
         {
             "EGICONS": "$EGLIB/icons"
         }
+
     ],
-    "path": "$EGLIB"
+    "path": ["$EGLIB",
+        {
+            "method": "append"
+        }
+    ]
 
 }
