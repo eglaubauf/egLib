@@ -32,8 +32,9 @@ import view as view
 # Where is this script?
 # SCRIPT_LOC = os.path.split(__file__)[0]
 
-reload(core)
-reload(view)
+import importlib
+importlib.reload(core)
+importlib.reload(view)
 
 '''
 Open with
