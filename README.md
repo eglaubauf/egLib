@@ -2,6 +2,9 @@
 
 A collection of scripts for SideFx Houdini
 
+## Updates
+  There is now initial python 3 support in the dev-branch
+  
 ## Provided Scripts
 
 - align - Aligns Nodes to each other - based on transforms
