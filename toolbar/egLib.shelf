@@ -64,7 +64,6 @@ eg_measure.run()
       <contextNetType>SOP</contextNetType>
     </toolMenuContext>
     <script scriptType="python"><![CDATA[import eg_in
-reload(eg_in)
 eg_in.run(kwargs)]]></script>
   </tool>
 
@@ -120,7 +119,6 @@ eg_resetTrans.run()
       <contextNetType>SOP</contextNetType>
     </toolMenuContext>
     <script scriptType="python"><![CDATA[import eg_out
-reload(eg_out)
 eg_out.run(kwargs)]]></script>
   </tool>
 
