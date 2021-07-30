@@ -23,6 +23,7 @@
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
     <memberTool name="Merge"/>
+    <memberTool name="CleanNullToParent"/>
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
@@ -168,6 +169,14 @@ eg_align.run()
 import eg_merge
 imp.reload(eg_merge)
 eg_merge.run(kwargs)
+]]></script>
+  </tool>
+
+    <tool name="CleanNullToParent" label="Merge" icon="$EGICONS/merge.png">
+    <script scriptType="python"><![CDATA[import importlib as imp
+import cleanNullToParent
+imp.reload(cleanNullToParent)
+cleanNullToParent.run(kwargs)
 ]]></script>
   </tool>
 </shelfDocument>
