@@ -16,6 +16,12 @@
     <memberTool name="Autofocus"/>
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
+<<<<<<< HEAD
+=======
+    <memberTool name="Merge"/>
+    <memberTool name="Focus2Cam"/>
+    <memberTool name="CleanNullToParent"/>
+>>>>>>> CleanNullToParent Script
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
