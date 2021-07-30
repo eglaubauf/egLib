@@ -23,6 +23,8 @@
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
     <memberTool name="Merge"/>
+    <memberTool name="Focus2Cam"/>
+    <memberTool name="CleanNullToParent"/>
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
