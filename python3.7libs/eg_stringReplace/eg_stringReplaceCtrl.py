@@ -26,8 +26,8 @@ import hou
 
 from PySide2 import QtWidgets, QtCore
 
-import eg_stringReplaceCore as core
-import view as view
+from eg_stringReplace import eg_stringReplaceCore as core
+from eg_stringReplace import view as view
 
 # Where is this script?
 # SCRIPT_LOC = os.path.split(__file__)[0]
