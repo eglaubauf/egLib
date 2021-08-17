@@ -208,11 +208,10 @@ class filecache:
 
 
     def increase_version(self, kwargs):
-        if kwargs["node"].parm("autoversion"):
+        if kwargs["node"].parm("autoversion").evalAsInt():
             # do stuff
             v = self.version + 1
             self.version = v
             kwargs["node"].parm("c_version_val").set(self.version)
             self.update_version(kwargs)
-            print(self.version)
         return
