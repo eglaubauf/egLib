@@ -8,7 +8,7 @@ class filecache:
         self.node = ''
         self.full_path = ''
         self.full_path_unexpanded = ''
-        self.version = ''
+        self.version = 0
         self.expanded = False
         self.parms = {
             'dir': '',
@@ -177,7 +177,6 @@ class filecache:
             print(p + ':' + self.parms[p])
 
     def create_full_path(self):
-
         if self.node.parm('c_version_folder').evalAsInt():
             self.full_path = self.parms['dir'] + '/' + self.parms['folder'] + '/' + self.parms['sub'] + '/' + self.version + '/' + self.parms['filename'] + self.parms['suffix']
             return
@@ -191,7 +190,6 @@ class filecache:
             self.expanded = False
 
     def update_version_from_string(self, kwargs):
-
         filestring = kwargs['node'].parm('file').evalAsString()
 
         r = re.compile(r'[.][v][\d]+[.]')
@@ -207,3 +205,14 @@ class filecache:
 
             kwargs['node'].parm('c_version_val').set(num)
             self.version = num
+
+
+    def increase_version(self, kwargs):
+        if kwargs["node"].parm("autoversion"):
+            # do stuff
+            v = self.version + 1
+            self.version = v
+            kwargs["node"].parm("c_version_val").set(self.version)
+            self.update_version(kwargs)
+            print(self.version)
+        return
