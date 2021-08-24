@@ -122,8 +122,10 @@ class filecache:
             elif labels[self.node.parm(key).evalAsInt()] == 'Custom':
                 self.parms[key] = self.node.parm('filename_string').evalAsString()
                 if self.node.parm('c_version').evalAsInt():
-                    self.version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
-                    self.parms[key] += '.v' + self.version
+                    #self.version = self.node.parm('c_version_val').evalAsString().rjust(3, '0') #HERE
+                    version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
+                    self.version = self.node.parm('c_version_val').evalAsInt()
+                    self.parms[key] += '.v' + version
             return True
         if key == 'suffix':
             if labels[self.node.parm(key).evalAsInt()] == 'Custom':
@@ -152,8 +154,10 @@ class filecache:
                 elif o == 'frames':
                     filename += '$F4' + '.'
                 elif o == 'c_version':
-                    self.version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
-                    filename += 'v' + self.version + '.'
+                    version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
+                    self.version = self.node.parm('c_version_val').evalAsInt()
+                    #self.version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
+                    filename += 'v' + version + '.'
                 else:
                     env = hou.getenv(o)
                     if env:
@@ -178,7 +182,7 @@ class filecache:
 
     def create_full_path(self):
         if self.node.parm('c_version_folder').evalAsInt():
-            self.full_path = self.parms['dir'] + '/' + self.parms['folder'] + '/' + self.parms['sub'] + '/' + self.version + '/' + self.parms['filename'] + self.parms['suffix']
+            self.full_path = self.parms['dir'] + '/' + self.parms['folder'] + '/' + self.parms['sub'] + '/' + str(self.version) + '/' + self.parms['filename'] + self.parms['suffix']
             return
         self.full_path = self.parms['dir'] + '/' + self.parms['folder'] + '/' + self.parms['sub'] + '/' + self.parms['filename'] + self.parms['suffix']
 
