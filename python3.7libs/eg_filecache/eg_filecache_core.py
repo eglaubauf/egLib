@@ -122,7 +122,6 @@ class filecache:
             elif labels[self.node.parm(key).evalAsInt()] == 'Custom':
                 self.parms[key] = self.node.parm('filename_string').evalAsString()
                 if self.node.parm('c_version').evalAsInt():
-                    #self.version = self.node.parm('c_version_val').evalAsString().rjust(3, '0') #HERE
                     version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
                     self.version = self.node.parm('c_version_val').evalAsInt()
                     self.parms[key] += '.v' + version
@@ -156,7 +155,6 @@ class filecache:
                 elif o == 'c_version':
                     version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
                     self.version = self.node.parm('c_version_val').evalAsInt()
-                    #self.version = self.node.parm('c_version_val').evalAsString().rjust(3, '0')
                     filename += 'v' + version + '.'
                 else:
                     env = hou.getenv(o)
@@ -169,7 +167,6 @@ class filecache:
 
     def update_file_parm(self):
         # self.full_path_unexpanded = self.full_path
-
         if self.expanded:
             self.node.parm('file').set(self.full_path)
             self.node.parm('file').set(self.node.parm('file').evalAsString())
