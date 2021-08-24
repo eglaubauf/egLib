@@ -24,6 +24,7 @@
     <memberTool name="multiImporter"/>
     <memberTool name="Merge"/>
     <memberTool name="CleanNullToParent"/>
+    <memberTool name="AutoFocus"/>
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
@@ -172,7 +173,7 @@ eg_merge.run(kwargs)
 ]]></script>
   </tool>
 
-    <tool name="CleanNullToParent" label="Merge" icon="$EGICONS/merge.png">
+  <tool name="CleanNullToParent" label="Merge" icon="$EGICONS/merge.png">
     <script scriptType="python"><![CDATA[import importlib as imp
 import cleanNullToParent
 imp.reload(cleanNullToParent)
