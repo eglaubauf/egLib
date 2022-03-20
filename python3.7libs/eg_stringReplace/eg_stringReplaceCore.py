@@ -55,8 +55,8 @@ class Core():
                     row.set_node(parm.node())
                     row.set_parm(parm)
                     # Check if string parm
-                    print(parm.node())
-                    print(parm.name())
+                    # print(parm.node())
+                    # print(parm.name())
                     if parm.parmTemplate().type() == hou.parmTemplateType.String:
                         try:
                             row.set_path(parm.unexpandedString())
