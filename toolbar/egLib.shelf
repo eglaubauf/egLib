@@ -23,8 +23,6 @@
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
     <memberTool name="Merge"/>
-    <memberTool name="CleanNullToParent"/>
-    <memberTool name="AutoFocus"/>
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">

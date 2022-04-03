@@ -20,7 +20,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>RS Material Builder</string>
+   <string>StringReplacer</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">

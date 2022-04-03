@@ -81,7 +81,7 @@ class Ui_StringReplacer(object):
 
     def retranslateUi(self, StringReplacer):
         _translate = QtCore.QCoreApplication.translate
-        StringReplacer.setWindowTitle(_translate("StringReplacer", "RS Material Builder"))
+        StringReplacer.setWindowTitle(_translate("StringReplacer", "StringReplacer"))
         self.label_2.setText(_translate("StringReplacer", "Path Replace"))
         self.lbl_searchLabel.setText(_translate("StringReplacer", "Search"))
         self.lbl_replaceLabel.setText(_translate("StringReplacer", "Replace"))

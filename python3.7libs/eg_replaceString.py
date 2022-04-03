@@ -68,8 +68,10 @@ def changeNodes(nodes, this, that, count):
 
     for n in nodes:
         # Go For SOPs Dops and Everything
+
         if n.children() is not None:
-            count = changeNodes(n.children(), this, that, count)
+            if not n.isLockedHDA():
+                count = changeNodes(n.children(), this, that, count)
 
         parms = n.parms()
         # Replace all Parms which are strings for the searched Value

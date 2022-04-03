@@ -50,28 +50,29 @@ class Core():
         self.clear_rows()
         for parm, path in hou.fileReferences():
             if parm:
-                if parm.node().type().name() != "inline":
-                    row = Row()
-                    row.set_node(parm.node())
-                    row.set_parm(parm)
-                    # Check if string parm
-                    # print(parm.node())
-                    # print(parm.name())
-                    if parm.parmTemplate().type() == hou.parmTemplateType.String:
-                        try:
-                            row.set_path(parm.unexpandedString())
-                        except hou.OperationFailed:
-                            row.set_path(parm.expression())
-                        try:
-                            row.set_new_path(parm.unexpandedString())
-                        except hou.OperationFailed:
-                            row.set_new_path(parm.expression())
-                    else:
-                        row.set_path(parm.evalAsString())
-                        row.set_new_path(parm.evalAsString())
-                    row.set_id(self.ids)
-                    self.ids += 1
-                    self.rows.append(row)
+                if not parm.node().isInsideLockedHDA():
+                    if parm.node().type().name() != "inline":
+                        refParm = parm.getReferencedParm()
+                        if refParm == parm:
+                            row = Row()
+                            row.set_node(parm.node())
+                            row.set_parm(parm)
+                            # Check if string parm
+                            if parm.parmTemplate().type() == hou.parmTemplateType.String:
+                                try:
+                                    row.set_path(parm.unexpandedString())
+                                except hou.OperationFailed:
+                                    row.set_path(parm.expression())
+                                try:
+                                    row.set_new_path(parm.unexpandedString())
+                                except hou.OperationFailed:
+                                    row.set_new_path(parm.expression())
+                            else:
+                                row.set_path(parm.evalAsString())
+                                row.set_new_path(parm.evalAsString())
+                            row.set_id(self.ids)
+                            self.ids += 1
+                            self.rows.append(row)
 
     def get_row(self, row_num):
         '''Returns a Single Row from Local Parms'''
