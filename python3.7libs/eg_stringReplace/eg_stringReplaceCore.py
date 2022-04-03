@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 
 import hou
-
+import re
 
 class Core():
 
@@ -98,6 +98,8 @@ class Core():
         for row in self.rows:
             path = row.get_data()['path']
             if path.find(pattern) > -1:
+
+                #new_path = re.sub(pattern, replace, path)
                 new_path = path.replace(pattern, replace)
                 row.set_new_path(new_path)
 

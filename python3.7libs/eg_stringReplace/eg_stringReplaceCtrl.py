@@ -85,8 +85,8 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
     # linking Buttons to Functions
     def create_connections(self):
 
-        self.tbx_searchBox.textChanged.connect(self.search)
-        self.tbx_replaceBox.textChanged.connect(self.search)
+        self.tbx_searchBox.editingFinished.connect(self.search)
+        self.tbx_replaceBox.editingFinished.connect(self.search)
 
         self.cbx_mat.toggled.connect(self.filter_mat)
         self.cbx_obj.toggled.connect(self.filter_obj)
@@ -98,6 +98,7 @@ class Controller(QtWidgets.QDialog, view.Ui_StringReplacer):
 
     def search(self):
         self.core.search(self.tbx_searchBox.text(), self.tbx_replaceBox.text())
+
         self.update_table()
 
     def reset(self):
