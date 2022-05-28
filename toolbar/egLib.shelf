@@ -6,23 +6,16 @@
  a single file. -->
 
   <toolshelf name="egLib" label="egLib">
-    <memberTool name="OUT"/>
-    <memberTool name="IN"/>
     <memberTool name="Reset Transforms"/>
     <memberTool name="Match Transform"/>
     <memberTool name="MakeQCam"/>
-    <memberTool name="PlanarX"/>
-    <memberTool name="PlanarY"/>
-    <memberTool name="PlanarZ"/>
     <memberTool name="incrSave"/>
     <memberTool name="Flipbook"/>
     <memberTool name="Measure"/>
     <memberTool name="TrajectoryQ"/>
-    <memberTool name="Hide Selected"/>
     <memberTool name="Autofocus"/>
     <memberTool name="ReplaceString1"/>
     <memberTool name="multiImporter"/>
-    <memberTool name="Merge"/>
   </toolshelf>
 
   <tool name="incrSave" label="incrSave" icon="$EGICONS/save-100.png">
