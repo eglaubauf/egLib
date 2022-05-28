@@ -1,10 +1,7 @@
 # egLib
 
-A collection of scripts for SideFx Houdini
+A collection of scripts for SideFx Houdini - Python3
 
-## Updates
-  There is now initial python 3 support in the dev-branch
-  
 ## Provided Scripts
 
 - MatchTransforms - Aligns Nodes to each other - based on transforms
