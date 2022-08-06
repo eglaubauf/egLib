@@ -34,6 +34,10 @@ A collection of scripts for SideFx Houdini - Python3
 - FileCache - now supported by vanilla houdini
 - Noise to Volume - The pre H18 way - not needed
 
+## Support
+
+- Tested with Houdini 19.5.334 on Ubuntu 22.04
+
 ## Installation:
 
 Copy the Provided egLib.json to your houdini user Directory within the packages folder:
