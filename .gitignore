@@ -1,3 +1,4 @@
 *.vscode
 *.pyc
 egLib.code-workspace
+.DS_Store
