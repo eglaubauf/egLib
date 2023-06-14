@@ -37,6 +37,7 @@ A collection of scripts for SideFx Houdini - Python3
 ## Support
 
 - Tested with Houdini 19.5.334 on Ubuntu 22.04
+- Indie only
 
 ## Installation:
 
