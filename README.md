@@ -1,7 +1,7 @@
 # egLib
 
 
-##Development stopped for the time being. Needs cleanup and rewrites at some point.
+## Development stopped for the time being. Needs cleanup and rewrites at some point.
 
 
 A collection of scripts for SideFx Houdini - Python3
